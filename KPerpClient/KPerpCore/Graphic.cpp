@@ -380,4 +380,24 @@ namespace kp {
 
 		return _Twidth;
 	}
+
+	ModernText::ModernText() {
+
+	}
+	ModernText::ModernText(ModernFont& Tfont, Vec2 Tpos, char Tchar, Color Tcolor) {
+		font = &Tfont;
+		color = Tcolor;
+	}
+	ModernText::ModernText(ModernFont& Tfont, Vec2 Tpos, const char* Tstring, Color Tcolor) {
+		font = &Tfont;
+		pos = Tpos;
+		string = Tstring;
+		color = Tcolor;
+	}
+	ModernText::ModernText(ModernFont& Tfont, Vec2 Tpos, const std::string& Tstring, Color Tcolor) {
+		font = &Tfont;
+		pos = Tpos;
+		string = Tstring;
+		color = Tcolor;
+	}
 }

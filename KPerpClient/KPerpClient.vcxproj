@@ -69,7 +69,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>KPerpCore\freetype\include;$(IncludePath)</IncludePath>
+    <LibraryPath>KPerpCore\extlib\freetype;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -78,7 +81,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;opengl32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;opengl32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -143,6 +146,7 @@
     <ClInclude Include="KPerpCore\View.hpp" />
     <ClInclude Include="KPerpCore\Win32Handles.hpp" />
     <ClInclude Include="KPerpCore\Window.hpp" />
+    <ClInclude Include="KPerpCore\ModernFont.hpp" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="stb_image_write.h" />
   </ItemGroup>
@@ -164,6 +168,7 @@
     <ClCompile Include="KPerpCore\VertexArray.cpp" />
     <ClCompile Include="KPerpCore\View.cpp" />
     <ClCompile Include="KPerpCore\Window.cpp" />
+    <ClCompile Include="KPerpCore\ModernFont.cpp" />
     <ClCompile Include="SimpleRender.cpp" />
   </ItemGroup>
   <ItemGroup>

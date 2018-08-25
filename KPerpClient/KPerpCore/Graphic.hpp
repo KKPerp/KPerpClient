@@ -6,6 +6,7 @@
 
 #include "Win32Handles.hpp"
 #include "Font.hpp"
+#include "ModernFont.hpp"
 
 namespace kp {
 	namespace Drawing {
@@ -95,6 +96,22 @@ namespace kp {
 
 		Font* font;
 		Vec2 pos;
+		std::string string;
+		Transform trans;
+	};
+
+	class ModernText {
+	public:
+		ModernText();
+		ModernText(ModernFont& Tfont, Vec2 Tpos, char Tchar, Color Tcolor);
+		ModernText(ModernFont& Tfont, Vec2 Tpos, const char* Tstring, Color Tcolor);
+		ModernText(ModernFont& Tfont, Vec2 Tpos, const std::string& Tstring, Color Tcolor);
+
+		//float getWidth();
+
+		ModernFont* font;
+		Vec2 pos;
+		Color color;
 		std::string string;
 		Transform trans;
 	};
