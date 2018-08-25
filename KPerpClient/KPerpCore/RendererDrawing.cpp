@@ -147,6 +147,9 @@ namespace kp {
 		matrix = Matrix<float,4,4>();
 		if (hglrc != NULL) {
 			shader.setUniform(matrixlocation, matrix);
+			if (cshader != NULL) {
+				cshader->setUniform(shadermatrixlocation, matrix);
+			}
 		}
 	}
 
@@ -154,6 +157,9 @@ namespace kp {
 		matrix *= Tmatrix;
 		if (hglrc != NULL) {
 			shader.setUniform(matrixlocation, matrix);
+			if (cshader != NULL) {
+				cshader->setUniform(shadermatrixlocation, matrix);
+			}
 		}
 	}
 

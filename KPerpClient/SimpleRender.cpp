@@ -132,7 +132,11 @@ int main() {
 
 	shader.Compile();
 
-	//shader.Use();
+	window.UseShader(shader,
+		shader.getLocation("_kp_matrix"),
+		shader.getLocation("_kp_view"),
+		shader.getLocation("_kp_transview")
+	);
 
 	char log[1000];
 	shader.getLog(Shader::ShaderType::Fragment, log, 1000);

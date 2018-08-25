@@ -109,6 +109,7 @@ namespace kp {
 	class Texture;
 	class View;
 	class Text;
+	//class Shader;
 
 	// Renderer : A main class for render with software and OpenGL
 
@@ -152,6 +153,11 @@ namespace kp {
 		virtual void updateView();
 		virtual void updateViewPosition();
 		virtual void useView(bool Tuse);
+
+		virtual Matrix<float, 4, 4> GetMatrix();
+		virtual Matrix<float, 4, 4> GetViewMatrix();
+		virtual Matrix<float, 4, 4> GetTransformMatrix();
+		virtual void UseShader(OpenGL::Shader& Tshader, unsigned int Tmatrixloc, unsigned int Tviewmatrixloc, unsigned int Ttransmatrixloc);
 
 		// Drawing
 
@@ -263,6 +269,12 @@ namespace kp {
 		unsigned int matrixlocation;
 		unsigned int viewmatrixlocation;
 		unsigned int transmatrixlocation;
+
+		unsigned int shadermatrixlocation;
+		unsigned int shaderviewmatrixlocation;
+		unsigned int shadertransmatrixlocation;
+
+		OpenGL::Shader* cshader;
 
 		unsigned int white;
 		unsigned int black;
