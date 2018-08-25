@@ -72,6 +72,7 @@ namespace kp {
 		WindowMoving,
 		WindowSizeChanged,
 		WindowChangingSize,
+		WindowNonMinimizedChange,
 		WindowChanged,
 		WindowRestored,
 		WindowMinimized,
@@ -215,6 +216,8 @@ namespace kp {
 
 		long width;
 		long height;
+
+		Point<long> defsize;
 
 		bool running;
 
