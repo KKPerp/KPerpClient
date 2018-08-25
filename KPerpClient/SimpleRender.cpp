@@ -189,7 +189,7 @@ int main() {
 		window << Text(font, Vec2(50, 200), "~#00ffffSimple ~#ffff00Text ~#ff00ffLOL");
 		window << Sprite(frame, Vec2(10, 10));
 
-		window << (Sprite(frame, Vec2(116, 42)) * Transform(Vec2(32,32),Vec2(1,1), mousepos.x));
+		window << (Sprite(frame, Vec2(116, 42)) * Transform(Vec2(32, 32), Vec2(1, 1), mousepos.x));
 
 		window.UseSolidTexture();
 

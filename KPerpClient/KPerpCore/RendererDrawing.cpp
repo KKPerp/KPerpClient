@@ -270,22 +270,20 @@ namespace kp {
 
 		Tsprite.texture->Bind();
 
-		if (Tsprite.trans.angle != 0.1) {
+		if (Tsprite.trans.angle != 0) {
 			float _width = (Tsprite.rect.c.x - Tsprite.rect.a.x)*Tsprite.trans.scale.x;
 			float _height = (Tsprite.rect.c.y - Tsprite.rect.a.y)*Tsprite.trans.scale.y;
 
-			float _cos = cos(radians_const(Tsprite.trans.angle - 90));
-			float _sin = sin(radians_const(Tsprite.trans.angle - 180));
-			//float _cos2 = cos(radians_const(Tsprite.trans.angle + 90));
-			float _sin2 = sin(radians_const(Tsprite.trans.angle + 90));
-			float _cos3 = cos(radians_const(Tsprite.trans.angle));
+			float _siny = sin(radians_const(Tsprite.trans.angle - 90));
+			float _cosy = cos(radians_const(Tsprite.trans.angle - 90));
+			float _sinx = sin(radians_const(Tsprite.trans.angle - 180));
+			float _cosx = cos(radians_const(Tsprite.trans.angle - 180));
 			//float _sin3 = sin(radians_const(Tsprite.trans.angle));
 
-			Vec2 _rot_a_ = Vec2(_sin - _sin2, _cos - _cos3) * Tsprite.trans.origin;
+			Vec2 _rot_a_ = (Vec2(_sinx, _cosx) * Tsprite.trans.origin.y*Tsprite.trans.scale.y) + (Vec2(_siny, _cosy) * Tsprite.trans.origin.x*Tsprite.trans.scale.x);
+			Vec2 _rot_b_ = Vec2(-_siny, -_cosy) * _width;
 
-			Vec2 _rot_b_ = Vec2(_sin2, -_cos) * _width;
-
-			Vec2 _rot_c_ = Vec2(-_sin, _cos3) * _height;
+			Vec2 _rot_c_ = Vec2(-_sinx, -_cosx) * _height;
 
 			//float _ox = _width - Tsprite.trans.origin.x;
 			//float _oy = _height - Tsprite.trans.origin.y;
