@@ -16,6 +16,8 @@
 
 #include "Font.hpp"
 
+#include "ModernFont.hpp"
+
 //#ifdef _WIN32
 //    #define APIENTRY __stdcall
 //#endif
@@ -109,6 +111,7 @@ namespace kp {
 	class Texture;
 	class View;
 	class Text;
+	class ModernText;
 	//class Shader;
 
 	// Renderer : A main class for render with software and OpenGL
@@ -194,6 +197,8 @@ namespace kp {
 
 		virtual Renderer& operator<< (const Text& Ttext);
 
+		virtual Renderer& operator<< (const ModernText& Ttext);
+
 		~Renderer();
 	protected:
 		int opengl;
@@ -262,6 +267,7 @@ namespace kp {
 		bool useview;
 
 		OpenGL::Shader shader;
+		OpenGL::Shader moderntext_shader;
 		Matrix<float, 4, 4> matrix;
 		Matrix<float, 4, 4> viewmatrix;
 		Matrix<float, 4, 4> transmatrix;
@@ -269,6 +275,10 @@ namespace kp {
 		unsigned int matrixlocation;
 		unsigned int viewmatrixlocation;
 		unsigned int transmatrixlocation;
+
+		unsigned int modernmatrixlocation;
+		unsigned int modernviewmatrixlocation;
+		unsigned int moderntransmatrixlocation;
 
 		unsigned int shadermatrixlocation;
 		unsigned int shaderviewmatrixlocation;

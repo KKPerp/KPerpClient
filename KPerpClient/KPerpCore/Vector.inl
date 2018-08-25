@@ -467,7 +467,7 @@ namespace kp {
 		_vec2.x = this->x;
 		_vec2.y = this->y;
 
-		return _vec2
+		return _vec2;
 	}
 
 	//
