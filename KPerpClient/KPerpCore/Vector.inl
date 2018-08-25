@@ -601,7 +601,7 @@ namespace kp {
 	Vector3<_Type>& Vector3<_Type>::operator+=(const Vector3<_Type>& Tvector) {
 		this->x += Tvector.x;
 		this->y += Tvector.y;
-		this->y += Tvector.z;
+		this->z += Tvector.z;
 
 		return *this;
 	}

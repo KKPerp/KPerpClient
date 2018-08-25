@@ -534,6 +534,10 @@ namespace kp {
 		if (hglrc != NULL) {
 			shader.setUniform(viewmatrixlocation, viewmatrix);
 			shader.setUniform(transmatrixlocation, transmatrix);
+			if (cshader != NULL) {
+				cshader->setUniform(shaderviewmatrixlocation, viewmatrix);
+				cshader->setUniform(shadertransmatrixlocation, transmatrix);
+			}
 		}
 
 		//targettexture = &Ttex;
@@ -572,6 +576,10 @@ namespace kp {
 			if (hglrc != NULL) {
 				shader.setUniform(viewmatrixlocation, viewmatrix);
 				shader.setUniform(transmatrixlocation, transmatrix);
+				if (cshader != NULL) {
+					cshader->setUniform(shaderviewmatrixlocation, viewmatrix);
+					cshader->setUniform(shadertransmatrixlocation, transmatrix);
+				}
 			}
 		}
 	}
@@ -608,6 +616,10 @@ namespace kp {
 		if (hglrc != NULL) {
 			shader.setUniform(viewmatrixlocation, viewmatrix);
 			shader.setUniform(transmatrixlocation, transmatrix);
+			if (cshader != NULL) {
+				cshader->setUniform(shaderviewmatrixlocation, viewmatrix);
+				cshader->setUniform(shadertransmatrixlocation, transmatrix);
+			}
 		}
 	}
 	void Renderer::updateView() {
@@ -629,6 +641,10 @@ namespace kp {
 		if (hglrc != NULL) {
 			shader.setUniform(viewmatrixlocation, viewmatrix);
 			shader.setUniform(transmatrixlocation, transmatrix);
+			if (cshader != NULL) {
+				cshader->setUniform(shaderviewmatrixlocation, viewmatrix);
+				cshader->setUniform(shadertransmatrixlocation, transmatrix);
+			}
 		}
 	}
 	void Renderer::updateViewPosition() {
@@ -651,10 +667,36 @@ namespace kp {
 		if (!useview) {
 			viewmatrix = Matrix<float, 4, 4>();
 			shader.setUniform(viewmatrixlocation, viewmatrix);
+			if (cshader != NULL) {
+				cshader->setUniform(shadermatrixlocation, matrix);
+			}
 		}
 		else {
 			updateView();
 		}
+	}
+
+	Matrix<float, 4, 4> Renderer::GetMatrix() {
+		return matrix;
+	}
+	Matrix<float, 4, 4> Renderer::GetViewMatrix() {
+		return viewmatrix;
+	}
+	Matrix<float, 4, 4> Renderer::GetTransformMatrix() {
+		return transmatrix;
+	}
+	void Renderer::UseShader(OpenGL::Shader& Tshader, unsigned int Tmatrixloc, unsigned int Tviewmatrixloc, unsigned int Ttransmatrixloc) {
+		shadermatrixlocation = Tmatrixloc;
+		shaderviewmatrixlocation = Tviewmatrixloc;
+		shadertransmatrixlocation = Ttransmatrixloc;
+
+		Tshader.Use();
+
+		Tshader.setUniform(shadermatrixlocation, matrix);
+		Tshader.setUniform(shaderviewmatrixlocation, viewmatrix);
+		Tshader.setUniform(shadertransmatrixlocation, transmatrix);
+
+		cshader = &Tshader;
 	}
 
 	Renderer::~Renderer() {

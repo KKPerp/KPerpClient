@@ -156,6 +156,11 @@ namespace kp {
 		virtual void updateViewPosition();
 		virtual void useView(bool Tuse);
 
+		virtual Matrix<float, 4, 4> GetMatrix();
+		virtual Matrix<float, 4, 4> GetViewMatrix();
+		virtual Matrix<float, 4, 4> GetTransformMatrix();
+		virtual void UseShader(OpenGL::Shader& Tshader, unsigned int Tmatrixloc, unsigned int Tviewmatrixloc, unsigned int Ttransmatrixloc);
+
 		// Drawing
 
 		virtual void Clear(Color Tcolor);
@@ -269,6 +274,12 @@ namespace kp {
 		unsigned int matrixlocation;
 		unsigned int viewmatrixlocation;
 		unsigned int transmatrixlocation;
+
+		unsigned int shadermatrixlocation;
+		unsigned int shaderviewmatrixlocation;
+		unsigned int shadertransmatrixlocation;
+
+		OpenGL::Shader* cshader;
 
 		unsigned int white;
 		unsigned int black;
