@@ -593,11 +593,15 @@ namespace kp {
 
 	Renderer& Renderer::operator<< (const ModernText& Ttext) {
 		// Activate corresponding render state
-		moderntext_shader.Use();
+		UseShader(moderntext_shader,
+			modernmatrixlocation,
+			modernviewmatrixlocation,
+			moderntransmatrixlocation
+		);
 		const int scale = 1;
 		int posx = Ttext.pos.x;
 		int posy = Ttext.pos.y;
-		//moderntext_shader.setUniform("textColor", Ttext.color);
+		moderntext_shader.setUniform("textColor", Ttext.color);
 		Vec4 Tcolor = Ttext.color;
 
 

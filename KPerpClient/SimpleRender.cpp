@@ -199,7 +199,7 @@ int main() {
 		window.UseSolidTexture();
 
 		window << v;
-		window << ModernText(mfont, Vec2(50, 300), "This is Modern Text", Color(128, 128, 128, 255));
+		window << ModernText(mfont, Vec2(50, 300), "This is Modern Text", Color(255, 0 ,255, 255));
 		//window << Sprite(_font, 10, 10);
 		window.Update();
 		kp::Event e = window.getEvent();

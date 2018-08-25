@@ -985,7 +985,7 @@ namespace kp {
 		moderntext_shader << "in vec4 _kp_outColor;";
 		moderntext_shader << "uniform sampler2D _kp_Tex;";
 		moderntext_shader << "void main() {";
-		moderntext_shader << "    FragColor = texture(_kp_Tex,_kp_outTexCoord) * _kp_outColor;";// 
+		moderntext_shader << "    FragColor = vec4(1,1,1,texture(_kp_Tex,_kp_outTexCoord).r) * _kp_outColor;";// 
 		moderntext_shader << "}";
 
 		moderntext_shader.Submit();
@@ -993,6 +993,10 @@ namespace kp {
 		moderntext_shader.End();
 
 		moderntext_shader.Compile();
+
+		modernmatrixlocation = moderntext_shader.getLocation("_kp_matrix");
+		modernviewmatrixlocation = moderntext_shader.getLocation("_kp_view");
+		moderntransmatrixlocation = moderntext_shader.getLocation("_kp_transview");
 
 		shader.Use();
 

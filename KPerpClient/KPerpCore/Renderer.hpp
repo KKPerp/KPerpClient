@@ -112,6 +112,7 @@ namespace kp {
 	class View;
 	class Text;
 	class ModernText;
+	//class Shader;
 
 	// Renderer : A main class for render with software and OpenGL
 
@@ -274,6 +275,10 @@ namespace kp {
 		unsigned int matrixlocation;
 		unsigned int viewmatrixlocation;
 		unsigned int transmatrixlocation;
+
+		unsigned int modernmatrixlocation;
+		unsigned int modernviewmatrixlocation;
+		unsigned int moderntransmatrixlocation;
 
 		unsigned int shadermatrixlocation;
 		unsigned int shaderviewmatrixlocation;
