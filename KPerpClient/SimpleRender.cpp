@@ -191,6 +191,8 @@ int main() {
 
 		window << (Sprite(frame, Vec2(116, 42)) * Transform(Vec2(32, 32), Vec2(1, 1), mousepos.x));
 
+		window << Sprite(frame, Vec2(116, 42)).rect;
+
 		window.UseSolidTexture();
 
 		window << v;

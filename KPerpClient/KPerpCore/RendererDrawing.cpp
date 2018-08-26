@@ -93,8 +93,8 @@ namespace kp {
 			float _buffer[] = {
 				((Trectangle.a.x)),(((Trectangle.a.y))),0.0f,Trectangle.c1.x,Trectangle.c1.y,Trectangle.c1.z,Trectangle.c1.w,Trectangle.t1.x,1.0f - Trectangle.t1.y,
 				((Trectangle.c.x)),(((Trectangle.a.y))),0.0f,Trectangle.c2.x,Trectangle.c2.y,Trectangle.c2.z,Trectangle.c2.w,Trectangle.t2.x,1.0f - Trectangle.t2.y,
+				((Trectangle.c.x)),(((Trectangle.c.y))),0.0f,Trectangle.c4.x,Trectangle.c4.y,Trectangle.c4.z,Trectangle.c4.w,Trectangle.t4.x,1.0f - Trectangle.t4.y,
 				((Trectangle.a.x)),(((Trectangle.c.y))),0.0f,Trectangle.c3.x,Trectangle.c3.y,Trectangle.c3.z,Trectangle.c3.w,Trectangle.t3.x,1.0f - Trectangle.t3.y,
-				((Trectangle.c.x)),(((Trectangle.c.y))),0.0f,Trectangle.c4.x,Trectangle.c4.y,Trectangle.c4.z,Trectangle.c4.w,Trectangle.t4.x,1.0f - Trectangle.t4.y
 			};
 
 			glBindVertexArray(rectvao);
