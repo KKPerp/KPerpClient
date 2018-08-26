@@ -126,8 +126,7 @@ int main() {
 	shader << "in vec4 Color;";
 	shader << "uniform sampler2D tex;";
 	shader << "void main() {";
-	//shader << "    vec4 sampled = vec4(1.0, 1.0, 1.0, texture(text, TexCoords).r);";
-	shader << "    FragColor = texture(tex,TexCoord) * Color * ;";// 
+	shader << "    FragColor = texture(tex,TexCoord) * Color;";// 
 	shader << "}";
 
 	shader.Submit();
@@ -194,7 +193,7 @@ int main() {
 		
 		window << Sprite(frame, Vec2(10, 10));
 
-		window << (Sprite(frame, Vec2(116, 42)) * Transform(Vec2(32,32),Vec2(1,1), mousepos.x));
+		window << Sprite(frame, Vec2(116, 42)).rect;
 
 		window.UseSolidTexture();
 
@@ -208,8 +207,8 @@ int main() {
 			std::cout << window.MouseWheel() << "\n";
 		}
 
-		if (e == kp::Event::WindowChanged) {
-			std::cout << "CHANGE";
+		if (e == kp::Event::WindowSizeChanged) {
+			std::cout << "SIZECHANGE";
 			window.updateViewPosition();
 			//window.restoreView();
 		}

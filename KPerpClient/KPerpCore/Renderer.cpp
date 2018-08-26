@@ -110,6 +110,10 @@ namespace kp {
 					}
 
 					if (Twparam == SIZE_MINIMIZED || Twparam == SIZE_RESTORED || Twparam == SIZE_MAXIMIZED) {
+						if (Twparam == SIZE_RESTORED || Twparam == SIZE_MAXIMIZED) {
+							_renderer->putEvent(Event::WindowNonMinimizedChange);
+						}
+						_renderer->putEvent(Event::WindowSizeChanged);
 						_renderer->putEvent(Event::WindowChanged);
 					}
 
@@ -142,6 +146,9 @@ namespace kp {
 				break;
 			}
 			case WM_ENTERSIZEMOVE: {
+				RECT _winrect;
+				GetWindowRect(Thwnd, &_winrect);
+				((*(Point<long>*)(_prop[10]))) = { (_winrect.right - _winrect.left) ,(_winrect.bottom - _winrect.top) };
 				//std::cout << "ENTER";
 				*(bool*)(_prop[7]) = 1;
 				ClipCursor(NULL);
@@ -152,12 +159,14 @@ namespace kp {
 				if (Twparam != SIZE_MINIMIZED) {
 					RECT _winrect;
 					GetWindowRect(Thwnd, &_winrect);
-					if (((*(Rectangle<long>*)(_prop[0])).c.x) - ((*(Rectangle<long>*)(_prop[0])).a.x) == (_winrect.right - _winrect.left) &&
-						((*(Rectangle<long>*)(_prop[0])).c.y) - ((*(Rectangle<long>*)(_prop[0])).a.y) == (_winrect.bottom - _winrect.top)) {
+					if ((*(Point<long>*)(_prop[10])).x == (_winrect.right - _winrect.left) &&
+						(*(Point<long>*)(_prop[10])).y == (_winrect.bottom - _winrect.top)) {
 						_renderer->putEvent(Event::WindowMoved);
+						//_renderer->putEvent(Event::WindowChanged);
 					}
 					else {
 						_renderer->putEvent(Event::WindowSizeChanged);
+						//_renderer->putEvent(Event::WindowChanged);
 					}
 					(*(Rectangle<long>*)(_prop[0])).a.x = _winrect.left;
 					(*(Rectangle<long>*)(_prop[0])).a.y = _winrect.top;
@@ -1145,6 +1154,7 @@ namespace kp {
 		prop[7] = &resizing;
 		prop[8] = &renderwidth;
 		prop[9] = &renderheight;
+		prop[10] = &defsize;
 
 		windowcount++;
 
@@ -1266,6 +1276,7 @@ namespace kp {
 		prop[7] = &resizing;
 		prop[8] = &renderwidth;
 		prop[9] = &renderheight;
+		prop[10] = &defsize;
 
 		windowcount++;
 
