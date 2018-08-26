@@ -384,20 +384,23 @@ namespace kp {
 	ModernText::ModernText() {
 
 	}
-	ModernText::ModernText(ModernFont& Tfont, Vec2 Tpos, char Tchar, Color Tcolor) {
+	ModernText::ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, char Tchar, Color Tcolor) {
 		font = &Tfont;
 		color = Tcolor;
+		size = Tsize;
 	}
-	ModernText::ModernText(ModernFont& Tfont, Vec2 Tpos, const char* Tstring, Color Tcolor) {
+	ModernText::ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, const char* Tstring, Color Tcolor) {
 		font = &Tfont;
 		pos = Tpos;
 		string = Tstring;
 		color = Tcolor;
+		size = Tsize;
 	}
-	ModernText::ModernText(ModernFont& Tfont, Vec2 Tpos, const std::string& Tstring, Color Tcolor) {
+	ModernText::ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, const std::string& Tstring, Color Tcolor) {
 		font = &Tfont;
 		pos = Tpos;
 		string = Tstring;
 		color = Tcolor;
+		size = Tsize;
 	}
 }

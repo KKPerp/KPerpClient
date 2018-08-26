@@ -190,7 +190,7 @@ int main() {
 
 		Vec2 mousepos = window.ViewMousePosFloat();
 
-		window << Text(font, Vec2(50, 200), "~#00ffffSimple ~#ffff00Text ~#ff00ffLOL");
+		window << Text(font, Vec2(0, 0), "~#00ffffSimple ~#ffff00Text ~#ff00ffLOL");
 		
 		window << Sprite(frame, Vec2(10, 10));
 
@@ -199,7 +199,7 @@ int main() {
 		window.UseSolidTexture();
 
 		window << v;
-		window << ModernText(mfont, Vec2(50, 300), "This is Modern Text", Color(255, 0 ,255, 255));
+		window << ModernText(mfont, Vec2(300, 300), Vec2(0,0), "This is Modern Text gypq", Color(255, 0 ,255, 255));
 		//window << Sprite(_font, 10, 10);
 		window.Update();
 		kp::Event e = window.getEvent();

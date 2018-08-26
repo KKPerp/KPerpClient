@@ -592,7 +592,6 @@ namespace kp {
 	}
 
 	Renderer& Renderer::operator<< (const ModernText& Ttext) {
-		// Activate corresponding render state
 		UseShader(moderntext_shader,
 			modernmatrixlocation,
 			modernviewmatrixlocation,
@@ -601,6 +600,9 @@ namespace kp {
 		const int scale = 1;
 		int posx = Ttext.pos.x;
 		int posy = Ttext.pos.y;
+		const char CharHeightMax = (Ttext.font->getPixelSize() / 3) * 2;
+		const char HighestCharHeight = '[';
+		int cWidth;
 		moderntext_shader.setUniform("textColor", Ttext.color);
 		Vec4 Tcolor = Ttext.color;
 
@@ -609,62 +611,36 @@ namespace kp {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glBindTexture(GL_TEXTURE_2D, Ttext.font->getTexture());
 		glBindVertexArray(rectvao);
-		//glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-		// Iterate through all characters
 		std::string::const_iterator c;
 		for (c = Ttext.string.begin(); c != Ttext.string.end(); c++)
 		{
+			//if (!posx > Ttext.size.x)
+
 			ModernGlyph ch = getModernGlyphList()[*c];
-
 			float xpos = posx + ch.Bearing.x * scale;
-			float ypos = posy - (ch.Size.y) * scale;
-
+			float ypos = posy + ((CharHeightMax - ch.Bearing.y))* scale;
+			//getModernGlyphList()[HighestCharHeight].Bearing.y
 			float w = ch.Size.x * scale;
 			float h = ch.Size.y * scale;
-			// Update VBO for each character
 			float vertices[] = {
 				xpos,     ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,0.0, 0.0 ,
 				xpos,     ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 0.0, 1.0 ,
 				xpos + w, ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 1.0, 0.0 ,
 				xpos + w, ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 1.0, 1.0
 			};
-
-			/*float vertices[] = {
-				xpos	, ypos		,	0.0, 0.0,
-				xpos	, ypos + h	,	0.0, 1.0,
-				xpos + w, ypos		,	1.0, 0.0,
-				xpos + w, ypos + h	,	1.0, 1.0
-			};*/
-
-			/*
-			float _buffer[] = {
-			// positions				// colors					// texture coords
-			(Rx),  Ry,				0, _color.x, _color.y, _color.z, _color.w,	RTx		 ,1.0f - (RTy),					// top left
-			((Rx + Rw)), Ry,		0, _color.x, _color.y, _color.z, _color.w,	RTx + RTw,1.0f - (RTy),				// top right
-			(Rx),  Ry + Rh,			0, _color.x, _color.y, _color.z, _color.w,	RTx		 ,1.0f - (RTy + RTh),		// bottom left
-			((Rx + Rw)), Ry + Rh,	0, _color.x, _color.y, _color.z, _color.w,	RTx + RTw,1.0f - (RTy + RTh)	// bottom right
-
-			};
-			*/
 	
 			char log[1000];
 			moderntext_shader.getLog(OpenGL::Shader::ShaderType::Fragment, log, 1000);
 			char loga[1000];
 			moderntext_shader.getLog(OpenGL::Shader::ShaderType::Vertex, loga, 1000);
 
-			// Render glyph texture over quad
 			glBindTexture(GL_TEXTURE_2D, ch.TextureID);
-			// Update content of VBO memory
 			glBindBuffer(GL_ARRAY_BUFFER, rectvbo);
-			//glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // Be sure to use glBufferSubData and not glBufferData
 			memcpy(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY), vertices, sizeof(vertices));
 			glUnmapBuffer(GL_ARRAY_BUFFER);
-			//glBindBuffer(GL_ARRAY_BUFFER, 0);
-			// Render quad
-			//glDrawArrays(GL_TRIANGLES, 0, 6);
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-			// Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-			posx += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+			posx += (ch.Advance >> 6) * scale;
+			UseSolidTexture();
 		}
 		glBindVertexArray(0);
 		glBindTexture(GL_TEXTURE_2D, 0);

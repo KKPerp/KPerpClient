@@ -103,13 +103,14 @@ namespace kp {
 	class ModernText {
 	public:
 		ModernText();
-		ModernText(ModernFont& Tfont, Vec2 Tpos, char Tchar, Color Tcolor);
-		ModernText(ModernFont& Tfont, Vec2 Tpos, const char* Tstring, Color Tcolor);
-		ModernText(ModernFont& Tfont, Vec2 Tpos, const std::string& Tstring, Color Tcolor);
+		ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, char Tchar, Color Tcolor);
+		ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, const char* Tstring, Color Tcolor);
+		ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, const std::string& Tstring, Color Tcolor);
 
 		//float getWidth();
 
 		ModernFont* font;
+		Vec2 size;
 		Vec2 pos;
 		Color color;
 		std::string string;

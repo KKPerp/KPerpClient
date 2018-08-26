@@ -25,6 +25,11 @@ namespace kp {
 		return texture;
 	}
 
+	int ModernFont::getPixelSize() const
+	{
+		return pixelSize;
+	}
+
 	void ModernFont::freetypeInit(const char * font, int pxl)
 	{
 

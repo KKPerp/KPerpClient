@@ -22,6 +22,7 @@ namespace kp {
 		ModernFont(const char * font, int pix);
 
 		unsigned int getTexture() const;
+		int getPixelSize() const;
 	private:
 		unsigned int texture;
 		void freetypeInit(const char * font, int pxl);
