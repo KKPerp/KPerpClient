@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>KPerpCore\freetype\include;$(IncludePath)</IncludePath>
-    <LibraryPath>KPerpCore\extlib\freetype;$(LibraryPath)</LibraryPath>
+    <IncludePath>include;include\ext;$(IncludePath)</IncludePath>
+    <LibraryPath>lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -126,59 +126,61 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="KPerpCore\CritSection.hpp" />
-    <ClInclude Include="KPerpCore\Drawing.hpp" />
-    <ClInclude Include="KPerpCore\Error.hpp" />
-    <ClInclude Include="KPerpCore\Font.hpp" />
-    <ClInclude Include="KPerpCore\glad\glad.h" />
-    <ClInclude Include="KPerpCore\glad\glad_egl.h" />
-    <ClInclude Include="KPerpCore\Graphic.hpp" />
-    <ClInclude Include="KPerpCore\Keyboard.hpp" />
-    <ClInclude Include="KPerpCore\ImageFile.hpp" />
-    <ClInclude Include="KPerpCore\Main.hpp" />
-    <ClInclude Include="KPerpCore\Math.hpp" />
-    <ClInclude Include="KPerpCore\Matrix.hpp" />
-    <ClInclude Include="KPerpCore\OpenGLResource.hpp" />
-    <ClInclude Include="KPerpCore\OpenGLTools.hpp" />
-    <ClInclude Include="KPerpCore\Renderer.hpp" />
-    <ClInclude Include="KPerpCore\Resource.hpp" />
-    <ClInclude Include="KPerpCore\Shader.hpp" />
-    <ClInclude Include="KPerpCore\Shape.hpp" />
-    <ClInclude Include="KPerpCore\Texture.hpp" />
-    <ClInclude Include="KPerpCore\Vector.hpp" />
-    <ClInclude Include="KPerpCore\VertexArray.hpp" />
-    <ClInclude Include="KPerpCore\View.hpp" />
-    <ClInclude Include="KPerpCore\Win32Handles.hpp" />
-    <ClInclude Include="KPerpCore\Window.hpp" />
-    <ClInclude Include="KPerpCore\ModernFont.hpp" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="stb_image_write.h" />
+    <ClInclude Include="include\KPerpExt\KGUI\kgui_window.hpp" />
+    <ClInclude Include="include\KPerpExt\KGUI\kgui_widget.hpp" />
+    <ClInclude Include="include\KPerpCore\CritSection.hpp" />
+    <ClInclude Include="include\KPerpCore\Drawing.hpp" />
+    <ClInclude Include="include\KPerpCore\Error.hpp" />
+    <ClInclude Include="include\KPerpCore\Font.hpp" />
+    <ClInclude Include="ext\glad\glad.h" />
+    <ClInclude Include="ext\glad\glad_egl.h" />
+    <ClInclude Include="include\KPerpCore\Graphic.hpp" />
+    <ClInclude Include="include\KPerpCore\Keyboard.hpp" />
+    <ClInclude Include="include\KPerpCore\ImageFile.hpp" />
+    <ClInclude Include="include\KPerpCore\Main.hpp" />
+    <ClInclude Include="include\KPerpCore\Math.hpp" />
+    <ClInclude Include="include\KPerpCore\Matrix.hpp" />
+    <ClInclude Include="include\KPerpCore\OpenGLResource.hpp" />
+    <ClInclude Include="include\KPerpCore\OpenGLTools.hpp" />
+    <ClInclude Include="include\KPerpCore\Renderer.hpp" />
+    <ClInclude Include="include\KPerpCore\Resource.hpp" />
+    <ClInclude Include="include\KPerpCore\Shader.hpp" />
+    <ClInclude Include="include\KPerpCore\Shape.hpp" />
+    <ClInclude Include="include\KPerpCore\Texture.hpp" />
+    <ClInclude Include="include\KPerpCore\Vector.hpp" />
+    <ClInclude Include="include\KPerpCore\VertexArray.hpp" />
+    <ClInclude Include="include\KPerpCore\View.hpp" />
+    <ClInclude Include="include\KPerpCore\Win32Handles.hpp" />
+    <ClInclude Include="include\KPerpCore\Window.hpp" />
+    <ClInclude Include="include\KPerpCore\ModernFont.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="KPerpCore\CritSection.cpp" />
-    <ClCompile Include="KPerpCore\Drawing.cpp" />
-    <ClCompile Include="KPerpCore\Error.cpp" />
-    <ClCompile Include="KPerpCore\Font.cpp" />
-    <ClCompile Include="KPerpCore\glad.c" />
-    <ClCompile Include="KPerpCore\glad_egl.c" />
-    <ClCompile Include="KPerpCore\Graphic.cpp" />
-    <ClCompile Include="KPerpCore\ImageFile.cpp" />
-    <ClCompile Include="KPerpCore\OpenGLResource.cpp" />
-    <ClCompile Include="KPerpCore\Renderer.cpp" />
-    <ClCompile Include="KPerpCore\RendererDrawing.cpp" />
-    <ClCompile Include="KPerpCore\Resource.cpp" />
-    <ClCompile Include="KPerpCore\Shader.cpp" />
-    <ClCompile Include="KPerpCore\Texture.cpp" />
-    <ClCompile Include="KPerpCore\VertexArray.cpp" />
-    <ClCompile Include="KPerpCore\View.cpp" />
-    <ClCompile Include="KPerpCore\Window.cpp" />
-    <ClCompile Include="KPerpCore\ModernFont.cpp" />
+    <ClCompile Include="source\ext\glad\glad.c" />
+    <ClCompile Include="source\ext\glad\glad_egl.c" />
+    <ClCompile Include="source\KPerpExt\KGUI\kgui_widget.cpp" />
+    <ClCompile Include="source\KPerpCore\CritSection.cpp" />
+    <ClCompile Include="source\KPerpCore\Drawing.cpp" />
+    <ClCompile Include="source\KPerpCore\Error.cpp" />
+    <ClCompile Include="source\KPerpCore\Font.cpp" />
+    <ClCompile Include="source\KPerpCore\Graphic.cpp" />
+    <ClCompile Include="source\KPerpCore\ImageFile.cpp" />
+    <ClCompile Include="source\KPerpCore\OpenGLResource.cpp" />
+    <ClCompile Include="source\KPerpCore\Renderer.cpp" />
+    <ClCompile Include="source\KPerpCore\RendererDrawing.cpp" />
+    <ClCompile Include="source\KPerpCore\Resource.cpp" />
+    <ClCompile Include="source\KPerpCore\Shader.cpp" />
+    <ClCompile Include="source\KPerpCore\Texture.cpp" />
+    <ClCompile Include="source\KPerpCore\VertexArray.cpp" />
+    <ClCompile Include="source\KPerpCore\View.cpp" />
+    <ClCompile Include="source\KPerpCore\Window.cpp" />
+    <ClCompile Include="source\KPerpCore\ModernFont.cpp" />
+    <ClCompile Include="source\KPerpExt\KGUI\kgui_window.cpp" />
     <ClCompile Include="SimpleRender.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="KPerpCore\Math.inl" />
-    <None Include="KPerpCore\Matrix.inl" />
-    <None Include="KPerpCore\Vector.inl" />
+    <None Include="include\KPerpCore\Math.inl" />
+    <None Include="include\KPerpCore\Matrix.inl" />
+    <None Include="include\KPerpCore\Vector.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

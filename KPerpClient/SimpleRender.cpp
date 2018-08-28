@@ -27,10 +27,10 @@ int main() {
 	//window.useView(1);
 	Font font;
 
-	ImageFile _fontf("Font.png", 1);
+	ImageFile _fontf("resources/img/Font.png", 1);
 
 	//MODERN TEXT
-	ModernFont mfont = ModernFont("PlataleDef.ttf", 72);
+	ModernFont mfont = ModernFont("resources/fnt/PlataleDef.ttf", 72);
 
 	kp::Texture _font(window, _fontf);
 	
@@ -56,7 +56,7 @@ int main() {
 
 	window.EnableBlending(BlendFactor::SourceAlpha, BlendFactor::OneMinusSourceAlpha);
 
-	ImageFile _framef("Frame.png", 1);
+	ImageFile _framef("resources/img/Frame.png", 1);
 
 	kp::Texture frame = kp::Texture(window, _framef);
 
@@ -198,7 +198,7 @@ int main() {
 		window.UseSolidTexture();
 
 		window << v;
-		window << ModernText(mfont, Vec2(300, 300), Vec2(0,0), "This is Modern Text gypq", Color(255, 0 ,255, 255));
+		window << ModernText(mfont, Vec2(300, 300), Vec2(window.ViewMousePos().x, window.ViewMousePos().y), "This is Modern Text gypq", Color(255, 0 ,255, 255));
 		//window << Sprite(_font, 10, 10);
 		window.Update();
 		kp::Event e = window.getEvent();
