@@ -14,15 +14,19 @@ namespace kp {
 		unsigned int Advance;    // Horizontal offset to advance to next glyph
 	};
 
-	std::map<char, ModernGlyph> &getModernGlyphList();
+	//std::map<char, ModernGlyph> &getModernGlyphList();
 	class ModernFont
 	{
 	public:
+		ModernFont();
 		ModernFont(const char * font);
 		ModernFont(const char * font, int pix);
 
 		unsigned int getTexture() const;
 		int getPixelSize() const;
+
+		std::map<char, ModernGlyph> GlyphList;
+
 	private:
 		unsigned int texture;
 		void freetypeInit(const char * font, int pxl);
