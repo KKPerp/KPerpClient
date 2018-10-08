@@ -80,9 +80,10 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <BrowseInformation>true</BrowseInformation>
+      <AdditionalIncludeDirectories>C:\Users\user\source\repos\KPerpClient\KPerpClient\source\ext\harfbuzz;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;opengl32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;opengl32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;freetype.lib;harfbuzz.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
@@ -126,8 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\KPerpExt\KGUI\kgui_window.hpp" />
-    <ClInclude Include="include\KPerpExt\KGUI\kgui_widget.hpp" />
+    <ClInclude Include="include.hpp" />
+    <ClInclude Include="include\KPerpExt\KGUI\Button.hpp" />
+    <ClInclude Include="include\KPerpExt\KGUI\kgui.hpp" />
+    <ClInclude Include="include\KPerpExt\KGUI\Style.hpp" />
+    <ClInclude Include="include\KPerpExt\KGUI\Subwindow.hpp" />
+    <ClInclude Include="include\KPerpExt\KGUI\SubwindowManager.hpp" />
+    <ClInclude Include="include\KPerpExt\KGUI\Widget.hpp" />
     <ClInclude Include="include\KPerpCore\CritSection.hpp" />
     <ClInclude Include="include\KPerpCore\Drawing.hpp" />
     <ClInclude Include="include\KPerpCore\Error.hpp" />
@@ -155,9 +161,15 @@
     <ClInclude Include="include\KPerpCore\ModernFont.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\KPerpExt\KGUI\kgui.cpp" />
+    <ClCompile Include="include\KPerpExt\KGUI\Layout.hpp" />
     <ClCompile Include="source\ext\glad\glad.c" />
     <ClCompile Include="source\ext\glad\glad_egl.c" />
-    <ClCompile Include="source\KPerpExt\KGUI\kgui_widget.cpp" />
+    <ClCompile Include="source\KPerpCore\kgui.cpp" />
+    <ClCompile Include="source\KPerpExt\KGUI\Button.cpp" />
+    <ClCompile Include="source\KPerpExt\KGUI\Layout.cpp" />
+    <ClCompile Include="source\KPerpExt\KGUI\SubwindowManager.cpp" />
+    <ClCompile Include="source\KPerpExt\KGUI\Widget.cpp" />
     <ClCompile Include="source\KPerpCore\CritSection.cpp" />
     <ClCompile Include="source\KPerpCore\Drawing.cpp" />
     <ClCompile Include="source\KPerpCore\Error.cpp" />
@@ -174,10 +186,14 @@
     <ClCompile Include="source\KPerpCore\View.cpp" />
     <ClCompile Include="source\KPerpCore\Window.cpp" />
     <ClCompile Include="source\KPerpCore\ModernFont.cpp" />
-    <ClCompile Include="source\KPerpExt\KGUI\kgui_window.cpp" />
+    <ClCompile Include="source\KPerpExt\KGUI\Subwindow.cpp" />
     <ClCompile Include="SimpleRender.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cpp.hint" />
+    <None Include="include\KPerpCore\Area.inl">
+      <FileType>Document</FileType>
+    </None>
     <None Include="include\KPerpCore\Math.inl" />
     <None Include="include\KPerpCore\Matrix.inl" />
     <None Include="include\KPerpCore\Vector.inl" />

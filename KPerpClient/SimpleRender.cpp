@@ -6,10 +6,16 @@
 
 //#include "KPerpEngine.hpp"
 
-#include "KPerpCore\Main.hpp"
-#include "KPerpCore\OpenGLTools.hpp"
-#include "KPerpCore\Drawing.hpp"
-#include "KPerpCore\Resource.hpp"
+
+//#include "include.hpp"
+#include <KPerpExt\KGUI\kgui.hpp>
+
+#include <KPerpCore\Main.hpp>
+#include <KPerpCore\OpenGLTools.hpp>
+#include <KPerpCore\Drawing.hpp>
+#include <KPerpCore\Resource.hpp>
+
+
 
 #include <iostream>
 
@@ -30,8 +36,20 @@ int main() {
 	ImageFile _fontf("resources/img/Font.png", 1);
 
 	//MODERN TEXT
-	ModernFont mfont = ModernFont("resources/fnt/PlataleDef.ttf", 72);
+	ModernFont mfont = ModernFont("resources/fnt/plat.ttf", 36);
+	//ModernFont sfont = ModernFont("resources/fnt/PlataleDef.ttf", 12);
 
+	//ModernText text_mouse
+
+
+	//kgui ext
+	
+	ext::SubWindowManager submag;
+	int point = submag.AddSubWindow(ext::Subwindow(Vec4(20, 20, 100, 250), L"¡éÍ§¿éÒ ÇâÃÃÊ ¾Õè®ÙË³Ùà»èÒ»Õè£éÒ§­Ù¡Ñ¹ abcdef 123456"));
+	//ext::Subwindow * subwin = new kp::ext::Subwindow(Vec4(30, 30, 500, 250), "My Window Sucks");
+	//ext::Button wbutton = ext::Button(subwin, "shit");
+	//subwin->addWidget()
+	
 	kp::Texture _font(window, _fontf);
 	
 	_fontf.Free();
@@ -183,8 +201,26 @@ int main() {
 	//window.resetTarget();
 
 	Text simpletext(font, Vec2(100, 200), "~#00ffffSimple Text LOL~~");
+
+	ModernText kongfa(mfont, Vec2(3000, 300), Vec2(300, 300), L"¡éÍ§¿éÒ ÇâÃÃÊ ¾Õè®ÙË³Ùà»èÒ»Õè£éÒ§­Ù¡Ñ¹ abcdef 123456", Color(255, 255, 255, 255), 1);
 	
 	while (window.isActive()) {
+		if (window.mousePressed((Mouse::LeftButton))) {
+			if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD > 0) {
+				_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD = 2;
+			}
+			else {
+				_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD = 1;
+			}
+		}
+		else {
+			if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 2) {
+				_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD = 3;
+			}
+			else {
+				_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD = 0;
+			}
+		}
 		window.Clear(Color(0, 64, 64, 255));
 
 		Vec2 mousepos = window.ViewMousePosFloat();
@@ -195,10 +231,22 @@ int main() {
 
 		window << Sprite(frame, Vec2(116, 42)).rect;
 
+		
+
 		window.UseSolidTexture();
 
 		window << v;
-		window << ModernText(mfont, Vec2(300, 300), Vec2(window.ViewMousePos().x, window.ViewMousePos().y), "This is Modern Text gypq", Color(255, 0 ,255, 255));
+//#define AAA submag.getSubWindowList()[point]
+//#define BBB AAA.getWidgetBound()
+//		
+//		AAA.setWidgetBound(BBB.x, BBB.y, window.ViewMousePos().x - BBB.x, window.ViewMousePos().y - BBB.y);
+		
+		window << submag;
+
+
+		window << kongfa;
+		//window << ModernText(sfont, Vec2(300, 300), Vec2(500, 500), L"This is Small Modern Text gypq", Color(255, 255, 255, 255), 1);
+		
 		//window << Sprite(_font, 10, 10);
 		window.Update();
 		kp::Event e = window.getEvent();
@@ -209,8 +257,8 @@ int main() {
 
 		if (e == kp::Event::WindowSizeChanged) {
 			std::cout << "SIZECHANGE";
-			window.updateViewPosition();
-			//window.restoreView();
+			//window.updateViewPosition();
+			window.restoreView();
 		}
 		if (e == kp::Event::WindowMoved) {
 			std::cout << "MOVE";
@@ -229,6 +277,9 @@ int main() {
 			window.Destroy();
 		}
 	}
+	/*if (subwin != NULL) {
+		delete subwin;
+	}*/
 
 	return 0;
 }

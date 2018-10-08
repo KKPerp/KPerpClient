@@ -48,6 +48,7 @@ namespace kp {
 		void Update();
 	private:
 		char msg[28];
+		char mousePress = 0;
 		void* events;
 	};
 }

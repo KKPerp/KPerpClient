@@ -1,7 +1,9 @@
 #ifndef _KPerpCore_Vector_hpp_
 #define _KPerpCore_Vector_hpp_
 
-#include <KPerpCore/Math.hpp>
+#include <stdlib.h>
+#include <string.h>
+#include "Math.hpp"
 
 namespace kp {
 	typedef void(*Pred)(int, void*, void*);
@@ -86,7 +88,7 @@ namespace kp {
 		Vector2(Point<_Type> Tpoint);
 		Vector2(_Type Tx, _Type Ty);
 
-		Vector2(Vector<_Type,2> Tvec2);
+		Vector2(Vector<_Type, 2> Tvec2);
 
 		Vector2 operator+(const Vector2& Tvector);
 		Vector2 operator+(const _Type& Tvalue);
@@ -121,15 +123,21 @@ namespace kp {
 		Vector2& operator/=(const Vector2& Tvector);
 		Vector2& operator/=(const _Type& Tvalue);
 
-		bool operator==(const Vector2& Tvector);
-		bool operator!=(const Vector2& Tvector);
+		bool operator==(const Vector2& Tvector) const;
+		bool operator!=(const Vector2& Tvector) const;
 
 		_Type mul() const;
 
 		operator Point<_Type>();
 
-		operator Vector<_Type,2>();
+		operator Vector<_Type, 2>();
 	};
+
+	template <typename _Type>
+	bool operator==(const Vector2<_Type>& Tlvector, const Vector2<_Type>& Trvector);
+
+	template <typename _Type>
+	bool operator!=(const Vector2<_Type>& Tlvector, const Vector2<_Type>& Trvector);
 
 	typedef Vector2<float> Vec2;
 
@@ -176,13 +184,19 @@ namespace kp {
 		Vector3& operator/=(const Vector3& Tvector);
 		Vector3& operator/=(const _Type& Tvalue);
 
-		bool operator==(const Vector3& Tvector);
-		bool operator!=(const Vector3& Tvector);
+		bool operator==(const Vector3& Tvector) const;
+		bool operator!=(const Vector3& Tvector) const;
 
 		_Type mul() const;
 
 		operator Point3D<_Type>();
 	};
+
+	template <typename _Type>
+	bool operator==(const Vector3<_Type>& Tlvector, const Vector3<_Type>& Trvector);
+
+	template <typename _Type>
+	bool operator!=(const Vector3<_Type>& Tlvector, const Vector3<_Type>& Trvector);
 
 	typedef Vector3<float> Vec3;
 
@@ -229,13 +243,19 @@ namespace kp {
 		Vector4& operator/=(const Vector4& Tvector);
 		Vector4& operator/=(const _Type& Tvalue);
 
-		bool operator==(const Vector4& Tvector);
-		bool operator!=(const Vector4& Tvector);
+		bool operator==(const Vector4& Tvector) const;
+		bool operator!=(const Vector4& Tvector) const;
 
 		_Type mul() const;
 
 		operator Point4D<_Type>();
 	};
+
+	template <typename _Type>
+	bool operator==(const Vector4<_Type>& Tlvector, const Vector4<_Type>& Trvector);
+
+	template <typename _Type>
+	bool operator!=(const Vector4<_Type>& Tlvector, const Vector4<_Type>& Trvector);
 
 	typedef Vector4<float> Vec4;
 

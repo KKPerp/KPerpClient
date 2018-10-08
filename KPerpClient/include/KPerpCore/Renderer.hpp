@@ -12,6 +12,10 @@
 #include <KPerpCore/Font.hpp>
 #include <KPerpCore/ModernFont.hpp>
 
+//#ifdef KPERPEXT_KGUI_INCLUDED
+//#include <KPerpExt/KGUI/kgui.hpp>
+//#endif
+
 //#ifdef _WIN32
 //    #define APIENTRY __stdcall
 //#endif
@@ -107,6 +111,15 @@ namespace kp {
 	class View;
 	class Text;
 	class ModernText;
+
+
+	namespace ext {
+		class Widget;
+		class Layout;
+		class SubWindow;
+		class Button;
+	}
+
 	//class Shader;
 
 	// Renderer : A main class for render with software and OpenGL
@@ -163,7 +176,7 @@ namespace kp {
 
 		virtual Renderer& operator<< (Drawing::Line Tline);
 		virtual Renderer& operator<< (Drawing::Triangle Ttriangle);
-		virtual Renderer& operator<< (Drawing::Rectangle Trectangle);
+		virtual Renderer& __stdcall operator<< (Drawing::Rectangle Trectangle);
 
 		virtual Renderer& operator<< (Drawing::VertexArray& Tva);
 
@@ -171,7 +184,7 @@ namespace kp {
 
 		virtual void Combine(const Matrix<float,4,4>& Tmatrix);
 
-		virtual void UseSolidTexture();
+		virtual void __stdcall UseSolidTexture();
 
 		// Render Stream
 
@@ -186,13 +199,19 @@ namespace kp {
 		virtual Renderer& operator<< (const Drawing::Vertex& Tvertex);
 		virtual Renderer& operator<< (_End);
 
-		virtual Renderer& operator<< (Graphic& Tgraphic);
+		//virtual Renderer& operator<< (Graphic& Tgraphic);
 
 		virtual Renderer& operator<< (const Sprite& Tsprite);
 
 		virtual Renderer& operator<< (const Text& Ttext);
 
 		virtual Renderer& operator<< (const ModernText& Ttext);
+
+//#ifdef KPERPEXT_KGUI_INCLUDED
+//		virtual Renderer& operator<< (const ext::Subwindow& gui);
+//#endif //KPERPEXT_KGUI_INCLUDED
+
+		//Renderer& operator<< (Renderer& renderer, const ext::Subwindow& gui);
 
 		~Renderer();
 	protected:
@@ -204,6 +223,21 @@ namespace kp {
 		HandleGLRenderContext hglrc;
 
 		HandleWindow hwnd;
+
+		unsigned int linevao;
+		unsigned int linevbo;
+		unsigned int lineebo;
+
+		unsigned int trianglevao;
+		unsigned int trianglevbo;
+		unsigned int triangleebo;
+
+		unsigned int rectvao;
+		unsigned int rectvbo;
+		unsigned int rectebo;
+
+		unsigned int vao;
+		unsigned int vbo;
 
 		Rectangle<long> rect;
 		Rectangle<long> clientrect;
@@ -235,21 +269,6 @@ namespace kp {
 
 		void* prop[32];
 
-		unsigned int linevao;
-		unsigned int linevbo;
-		unsigned int lineebo;
-
-		unsigned int trianglevao;
-		unsigned int trianglevbo;
-		unsigned int triangleebo;
-
-		unsigned int rectvao;
-		unsigned int rectvbo;
-		unsigned int rectebo;
-
-		unsigned int vao;
-		unsigned int vbo;
-
 		unsigned int tframebuffer;
 		Texture* targettexture;
 
@@ -273,13 +292,13 @@ namespace kp {
 		unsigned int viewmatrixlocation;
 		unsigned int transmatrixlocation;
 
-		unsigned int modernmatrixlocation;
-		unsigned int modernviewmatrixlocation;
-		unsigned int moderntransmatrixlocation;
-
 		unsigned int shadermatrixlocation;
 		unsigned int shaderviewmatrixlocation;
 		unsigned int shadertransmatrixlocation;
+
+		unsigned int modernmatrixlocation;
+		unsigned int modernviewmatrixlocation;
+		unsigned int moderntransmatrixlocation;
 
 		OpenGL::Shader* cshader;
 
@@ -302,6 +321,8 @@ namespace kp {
 
 		bool enterfullscreen(int Tw, int Th);
 		bool leavefullscreen(WindowStyle Tstyle);
+
+
 	};
 
 	class _ShaderDeclare {
@@ -317,5 +338,7 @@ namespace kp {
 
 	Renderer* getCurrentRenderer();
 }
+
+
 
 #endif

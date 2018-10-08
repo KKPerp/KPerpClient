@@ -6,6 +6,7 @@
 //#include <KPerpExt/KGUI/kgui.hpp>
 
 #include <string.h>
+#include <harfbuzz/src/hb.h>
 
 namespace kp {
 	unsigned int _glmodes[] = {
@@ -576,27 +577,32 @@ namespace kp {
 		int cWidth;
 		moderntext_shader.setUniform("textColor", Ttext.color);
 		Vec4 Tcolor = Ttext.color;
-
+		bool deadend = false;
+		
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glBindTexture(GL_TEXTURE_2D, Ttext.font->getTexture());
 		glBindVertexArray(rectvao);
-		std::string::const_iterator c;
-		for (c = Ttext.string.begin(); c != Ttext.string.end(); c++)
-		{
-			ModernGlyph ch = Ttext.font->GlyphList[*c];
-			if (posx + ch.Size.x > Ttext.pos.x + Ttext.size.x)
-			{
-				posy += CharHeightMax * Ttext.scale;
-				posx = Ttext.pos.x;
-			}
+		std::wstring::const_iterator c;
 
-			float xpos = posx + ch.Bearing.x * Ttext.scale;
-			float ypos = posy + ((CharHeightMax - ch.Bearing.y)) * Ttext.scale;
+
+
+		for (int i = 0; i < Ttext.glyphCount; ++i) {
+
+			if (posx + Ttext.Tglyph[i].Size.x > Ttext.pos.x + Ttext.size.x)
+			{
+				if (!Ttext.oneLine)
+				{
+					posy += CharHeightMax * Ttext.scale;
+					posx = Ttext.pos.x;
+				}
+			}
+			float xpos = posx + Ttext.Tglyph[i].Bearing.x * Ttext.scale;
+			float ypos = posy + ((CharHeightMax - Ttext.Tglyph[i].Bearing.y)) * Ttext.scale;
 			//getModernGlyphList()[HighestCharHeight].Bearing.y
-			float w = ch.Size.x * Ttext.scale;
-			float h = ch.Size.y * Ttext.scale;
+			float w = Ttext.Tglyph[i].Size.x * Ttext.scale;
+			float h = Ttext.Tglyph[i].Size.y * Ttext.scale;
 			float vertices[] = {
 				xpos,     ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,0.0, 0.0 ,
 				xpos,     ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 0.0, 1.0 ,
@@ -609,16 +615,69 @@ namespace kp {
 			char loga[1000];
 			moderntext_shader.getLog(OpenGL::Shader::ShaderType::Vertex, loga, 1000);
 
-			glBindTexture(GL_TEXTURE_2D, ch.TextureID);
-			glBindBuffer(GL_ARRAY_BUFFER, rectvbo);
-			memcpy(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY), vertices, sizeof(vertices));
-			glUnmapBuffer(GL_ARRAY_BUFFER);
-			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-			posx += (ch.Advance >> 6) * Ttext.scale;
-			UseSolidTexture();
-			//*this << Drawing::Rectangle(Vec3(xpos, ypos, 0), Vec3(xpos + w, ypos + h, 0), Color::Blue, Color::Green, Color::Red, Color::Yellow, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), false);
+			if (Ttext.oneLine)
+			{
+				if (!deadend)
+				{
+					/*if (posx + Ttext.Tglyph[i].Size.x < Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[63].Size.x))
+						glBindTexture(GL_TEXTURE_2D, Ttext.Tglyph[i].TextureID);
+					else
+					{
+						glBindTexture(GL_TEXTURE_2D, Ttext.font->GlyphList[63].TextureID);
+						deadend = true;
+					}
+					glBindBuffer(GL_ARRAY_BUFFER, rectvbo);
+					memcpy(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY), vertices, sizeof(vertices));
+					glUnmapBuffer(GL_ARRAY_BUFFER);
+					glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);*/
 
+					if (posx + Ttext.Tglyph[i].Size.x < Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[392].Size.x))
+					{
+						glBindTexture(GL_TEXTURE_2D, Ttext.Tglyph[i].TextureID);
+						glBindBuffer(GL_ARRAY_BUFFER, rectvbo);
+						memcpy(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY), vertices, sizeof(vertices));
+						glUnmapBuffer(GL_ARRAY_BUFFER);
+						glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+					}
+					else
+					{
+						float xpos = posx + Ttext.font->GlyphList[392].Bearing.x * Ttext.scale;
+						float ypos = posy + ((CharHeightMax - Ttext.font->GlyphList[392].Bearing.y)) * Ttext.scale;
+						//getModernGlyphList()[HighestCharHeight].Bearing.y
+						float w = Ttext.font->GlyphList[392].Size.x * Ttext.scale;
+						float h = Ttext.font->GlyphList[392].Size.y * Ttext.scale;
+						float newvertices[] = {
+							Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[392].Size.x),     ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,0.0, 0.0 ,
+							Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[392].Size.x),     ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 0.0, 1.0 ,
+							Ttext.pos.x + Ttext.size.x, ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 1.0, 0.0 ,
+							Ttext.pos.x + Ttext.size.x, ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 1.0, 1.0
+						};
+						//*this << Drawing::Rectangle(Vec3(Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[392].Size.x), ypos, 0), Vec3(Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[392].Size.x) + (Ttext.font->GlyphList[392].Size.x), ypos + h, 0), Color::Blue, Color::Green, Color::Red, Color::Yellow, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), false);
+						glBindTexture(GL_TEXTURE_2D, Ttext.font->GlyphList[392].TextureID);
+						glBindBuffer(GL_ARRAY_BUFFER, rectvbo);
+						memcpy(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY), newvertices, sizeof(newvertices));
+						glUnmapBuffer(GL_ARRAY_BUFFER);
+						glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+						deadend = true;
+					}
+				}
+			}
+			else
+			{
+				glBindTexture(GL_TEXTURE_2D, Ttext.Tglyph[i].TextureID);
+				glBindBuffer(GL_ARRAY_BUFFER, rectvbo);
+				memcpy(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY), vertices, sizeof(vertices));
+				glUnmapBuffer(GL_ARRAY_BUFFER);
+				glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+			}
+			posx += (Ttext.Tglyph[i].Advance >> 6) * Ttext.scale;
+			UseSolidTexture();
+			//Ttext.free();
+			
+			//*this << Drawing::Rectangle(Vec3(xpos, ypos, 0), Vec3(xpos + w, ypos + h, 0), Color::Blue, Color::Green, Color::Red, Color::Yellow, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), false);
 		}
+		
+		
 		//*this << Drawing::Rectangle(Vec3(Ttext.pos.x, Ttext.pos.y, 0), Vec3(Ttext.pos.x + Ttext.size.x, Ttext.pos.y + Ttext.size.y, 0), Color::Blue, Color::Green, Color::Red, Color::Yellow, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), false);
 		glBindVertexArray(0);
 		glBindTexture(GL_TEXTURE_2D, 0);

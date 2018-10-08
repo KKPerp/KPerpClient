@@ -29,7 +29,7 @@ namespace kp {
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension> Vector<_Type, _Dimension>::operator+(const Vector& Tvector) {
 		Vector<_Type, _Dimension> _vector = *this;
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			_vector.value[i] += Tvector.value[i];
 		}
 		return _vector;
@@ -37,7 +37,7 @@ namespace kp {
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension> Vector<_Type, _Dimension>::operator+(const _Type& Tvalue) {
 		Vector<_Type, _Dimension> _vector = *this;
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			_vector.value[i] += Tvalue;
 		}
 		return _vector;
@@ -46,7 +46,7 @@ namespace kp {
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension> Vector<_Type, _Dimension>::operator-(const Vector& Tvector) {
 		Vector<_Type, _Dimension> _vector = *this;
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			_vector.value[i] -= Tvector.value[i];
 		}
 		return _vector;
@@ -54,7 +54,7 @@ namespace kp {
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension> Vector<_Type, _Dimension>::operator-(const _Type& Tvalue) {
 		Vector<_Type, _Dimension> _vector = *this;
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			_vector.value[i] -= Tvalue;
 		}
 		return _vector;
@@ -63,7 +63,7 @@ namespace kp {
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension> Vector<_Type, _Dimension>::operator*(const Vector& Tvector) {
 		Vector<_Type, _Dimension> _vector = *this;
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			_vector.value[i] *= Tvector.value[i];
 		}
 		return _vector;
@@ -71,7 +71,7 @@ namespace kp {
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension> Vector<_Type, _Dimension>::operator*(const _Type& Tvalue) {
 		Vector<_Type, _Dimension> _vector = *this;
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			_vector.value[i] *= Tvalue;
 		}
 		return _vector;
@@ -80,7 +80,7 @@ namespace kp {
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension> Vector<_Type, _Dimension>::operator/(const Vector& Tvector) {
 		Vector<_Type, _Dimension> _vector = *this;
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			_vector.value[i] /= Tvector.value[i];
 		}
 		return _vector;
@@ -88,7 +88,7 @@ namespace kp {
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension> Vector<_Type, _Dimension>::operator/(const _Type& Tvalue) {
 		Vector<_Type, _Dimension> _vector = *this;
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			_vector.value[i] /= Tvalue;
 		}
 		return _vector;
@@ -97,7 +97,7 @@ namespace kp {
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension> Vector<_Type, _Dimension>::operator%(const Vector& Tvector) {
 		Vector<_Type, _Dimension> _vector = *this;
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			_vector.value[i] %= Tvector.value[i];
 		}
 		return _vector;
@@ -105,7 +105,7 @@ namespace kp {
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension> Vector<_Type, _Dimension>::operator%(const _Type& Tvalue) {
 		Vector<_Type, _Dimension> _vector = *this;
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			_vector.value[i] %= Tvalue;
 		}
 		return _vector;
@@ -118,7 +118,7 @@ namespace kp {
 
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension>& Vector<_Type, _Dimension>::operator++() {
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			this->value[i]++;
 		}
 		return *this;
@@ -126,7 +126,7 @@ namespace kp {
 
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension>& Vector<_Type, _Dimension>::operator--() {
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			this->value[i]--;
 		}
 		return *this;
@@ -134,14 +134,14 @@ namespace kp {
 
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension>& Vector<_Type, _Dimension>::operator+=(const Vector<_Type, _Dimension>& Tvector) {
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			this->value[i] += Tvector.value[i];
 		}
 		return *this;
 	}
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension>& Vector<_Type, _Dimension>::operator+=(const _Type& Tvalue) {
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			this->value[i] += Tvalue;
 		}
 		return *this;
@@ -149,14 +149,14 @@ namespace kp {
 
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension>& Vector<_Type, _Dimension>::operator-=(const Vector<_Type, _Dimension>& Tvector) {
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			this->value[i] -= Tvector.value[i];
 		}
 		return *this;
 	}
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension>& Vector<_Type, _Dimension>::operator-=(const _Type& Tvalue) {
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			this->value[i] -= Tvalue;
 		}
 		return *this;
@@ -164,14 +164,14 @@ namespace kp {
 
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension>& Vector<_Type, _Dimension>::operator*=(const Vector<_Type, _Dimension>& Tvector) {
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			this->value[i] *= Tvector.value[i];
 		}
 		return *this;
 	}
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension>& Vector<_Type, _Dimension>::operator*=(const _Type& Tvalue) {
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			this->value[i] *= Tvalue;
 		}
 		return *this;
@@ -179,14 +179,14 @@ namespace kp {
 
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension>& Vector<_Type, _Dimension>::operator/=(const Vector<_Type, _Dimension>& Tvector) {
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			this->value[i] /= Tvector.value[i];
 		}
 		return *this;
 	}
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension>& Vector<_Type, _Dimension>::operator/=(const _Type& Tvalue) {
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			this->value[i] /= Tvalue;
 		}
 		return *this;
@@ -194,21 +194,21 @@ namespace kp {
 
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension>& Vector<_Type, _Dimension>::operator%=(const Vector<_Type, _Dimension>& Tvector) {
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			this->value[i] %= Tvector.value[i];
 		}
 		return *this;
 	}
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension>& Vector<_Type, _Dimension>::operator%=(const _Type& Tvalue) {
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			this->value[i] %= Tvalue;
 		}
 		return *this;
 	}
 	template <typename _Type, int _Dimension>
 	bool Vector<_Type, _Dimension>::operator==(const Vector<_Type, _Dimension>& Tvector) {
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			if (this->value[i] != Tvector.value[i]) {
 				return 0;
 			}
@@ -217,8 +217,8 @@ namespace kp {
 	}
 	template <typename _Type, int _Dimension>
 	bool Vector<_Type, _Dimension>::operator!=(const _Type& Tvalue) {
-		for (int i = 0;i < _Dimension;i++) {
-			if (this->value[i] != Tvector.value[i]) {
+		for (int i = 0; i < _Dimension; i++) {
+			if (this->value[i] != Tvalue) {
 				return 1;
 			}
 		}
@@ -228,7 +228,7 @@ namespace kp {
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension> Vector<_Type, _Dimension>::operator&&(const Vector<_Type, _Dimension>& Tvector) {
 		Vector<_Type, _Dimension> _vector = *this;
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			_vector.value[i] &= Tvector.value[i];
 		}
 		return _vector;
@@ -236,7 +236,7 @@ namespace kp {
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension> Vector<_Type, _Dimension>::operator||(const Vector<_Type, _Dimension>& Tvector) {
 		Vector<_Type, _Dimension> _vector = *this;
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			_vector.value[i] |= Tvector.value[i];
 		}
 		return _vector;
@@ -245,7 +245,7 @@ namespace kp {
 	template <typename _Type, int _Dimension>
 	Vector<_Type, _Dimension> Vector<_Type, _Dimension>::operator()(const Vector<_Type, _Dimension>& Tvector, const Pred Tpred) {
 		Vector<_Type, _Dimension> _vector = Tvector;
-		for (int i = 0;i < _Dimension;i++) {
+		for (int i = 0; i < _Dimension; i++) {
 			Tpred(sizeof(_Type), &(this->value[i]), &(_vector.value[i]));
 		}
 		return _vector;
@@ -281,7 +281,7 @@ namespace kp {
 	}
 
 	template <typename _Type>
-	Vector2<_Type>::Vector2(Vector<_Type,2> Tvec2) {
+	Vector2<_Type>::Vector2(Vector<_Type, 2> Tvec2) {
 		this->x = Tvec2[0];
 		this->y = Tvec2[1];
 	}
@@ -361,16 +361,16 @@ namespace kp {
 
 	template <typename _Type>
 	Vector2<_Type>& Vector2<_Type>::operator++() {
-		_vector.x++;
-		_vector.y++;
+		this->x++;
+		this->y++;
 
 		return *this;
 	}
 
 	template <typename _Type>
 	Vector2<_Type>& Vector2<_Type>::operator--() {
-		_vector.x--;
-		_vector.y--;
+		this->x--;
+		this->y--;
 
 		return *this;
 	}
@@ -436,16 +436,12 @@ namespace kp {
 	}
 
 	template <typename _Type>
-	bool Vector2<_Type>::operator==(const Vector2<_Type>& Tvector) {
+	bool Vector2<_Type>::operator==(const Vector2<_Type>& Tvector) const {
 		return (this->x == Tvector.x && this->y == Tvector.y);
-
-		return 1;
 	}
 	template <typename _Type>
-	bool Vector2<_Type>::operator!=(const Vector2<_Type>& Tvector) {
+	bool Vector2<_Type>::operator!=(const Vector2<_Type>& Tvector) const {
 		return (this->x != Tvector.x || this->y != Tvector.y);
-
-		return 0;
 	}
 
 	template <typename _Type>
@@ -462,12 +458,22 @@ namespace kp {
 	}
 
 	template <typename _Type>
-	Vector2<_Type>::operator Vector<_Type,2>() {
+	Vector2<_Type>::operator Vector<_Type, 2>() {
 		Vec2 _vec2;
 		_vec2.x = this->x;
 		_vec2.y = this->y;
 
 		return _vec2;
+	}
+
+	template <typename _Type>
+	bool operator==(const Vector2<_Type>& Tlvector, const Vector2<_Type>& Trvector) {
+		return (Tlvector->x == Trvector.x && Tlvector->y == Trvector.y);
+	}
+
+	template <typename _Type>
+	bool operator!=(const Vector2<_Type>& Tlvector, const Vector2<_Type>& Trvector) {
+		return (Tlvector->x != Trvector.x || Tlvector->y != Trvector.y);
 	}
 
 	//
@@ -581,18 +587,18 @@ namespace kp {
 
 	template <typename _Type>
 	Vector3<_Type>& Vector3<_Type>::operator++() {
-		_vector.x++;
-		_vector.y++;
-		_vector.z++;
+		this->x++;
+		this->y++;
+		this->z++;
 
 		return *this;
 	}
 
 	template <typename _Type>
 	Vector3<_Type>& Vector3<_Type>::operator--() {
-		_vector.x--;
-		_vector.y--;
-		_vector.z--;
+		this->x--;
+		this->y--;
+		this->z--;
 
 		return *this;
 	}
@@ -666,16 +672,12 @@ namespace kp {
 	}
 
 	template <typename _Type>
-	bool Vector3<_Type>::operator==(const Vector3<_Type>& Tvector) {
-		return (this->x == Tvector.x && this->y == Tvector.y && this->z == Tvector.z);
-
-		return 1;
+	bool Vector3<_Type>::operator==(const Vector3<_Type>& Tvector) const {
+		return (this->x == Tvector.x && this->y == Tvector.y && this->z == Tvector.z);;
 	}
 	template <typename _Type>
-	bool Vector3<_Type>::operator!=(const Vector3<_Type>& Tvector) {
+	bool Vector3<_Type>::operator!=(const Vector3<_Type>& Tvector) const {
 		return (this->x != Tvector.x || this->y != Tvector.y || this->z != Tvector.z);
-
-		return 0;
 	}
 
 	template <typename _Type>
@@ -690,6 +692,16 @@ namespace kp {
 		_point.y = this->y;
 		_point.z = this->z;
 		return _point;
+	}
+
+	template <typename _Type>
+	bool operator==(const Vector3<_Type>& Tlvector, const Vector3<_Type>& Trvector) {
+		return (Tlvector->x == Trvector.x && Tlvector->y == Trvector.y && Tlvector->z == Trvector.z);
+	}
+
+	template <typename _Type>
+	bool operator!=(const Vector3<_Type>& Tlvector, const Vector3<_Type>& Trvector) {
+		return (Tlvector->x != Trvector.x || Tlvector->y != Trvector.y || Tlvector->z != Trvector.z);
 	}
 
 	//
@@ -814,20 +826,20 @@ namespace kp {
 
 	template <typename _Type>
 	Vector4<_Type>& Vector4<_Type>::operator++() {
-		_vector.x++;
-		_vector.y++;
-		_vector.z++;
-		_vector.w++;
+		this->x++;
+		this->y++;
+		this->z++;
+		this->w++;
 
 		return *this;
 	}
 
 	template <typename _Type>
 	Vector4<_Type>& Vector4<_Type>::operator--() {
-		_vector.x--;
-		_vector.y--;
-		_vector.z--;
-		_vector.w--;
+		this->x--;
+		this->y--;
+		this->z--;
+		this->w--;
 
 		return *this;
 	}
@@ -909,21 +921,27 @@ namespace kp {
 	}
 
 	template <typename _Type>
-	bool Vector4<_Type>::operator==(const Vector4<_Type>& Tvector) {
+	bool Vector4<_Type>::operator==(const Vector4<_Type>& Tvector) const {
 		return (this->x == Tvector.x && this->y == Tvector.y && this->z == Tvector.z && this->w == Tvector.w);
-
-		return 1;
 	}
 	template <typename _Type>
-	bool Vector4<_Type>::operator!=(const Vector4<_Type>& Tvector) {
+	bool Vector4<_Type>::operator!=(const Vector4<_Type>& Tvector) const {
 		return (this->x != Tvector.x || this->y != Tvector.y || this->z != Tvector.z || this->w != Tvector.w);
-
-		return 0;
 	}
 
 	template <typename _Type>
 	_Type Vector4<_Type>::mul() const {
 		return this->x * this->y * this->z * this->w;
+	}
+
+	template <typename _Type>
+	bool operator==(const Vector4<_Type>& Tlvector, const Vector4<_Type>& Trvector) {
+		return (Tlvector->x == Trvector.x && Tlvector->y == Trvector.y && Tlvector->z == Trvector.w && Tlvector->z == Trvector.w);
+	}
+
+	template <typename _Type>
+	bool operator!=(const Vector4<_Type>& Tlvector, const Vector4<_Type>& Trvector) {
+		return (Tlvector->x != Trvector.x || Tlvector->y != Trvector.y || Tlvector->z != Trvector.w && Tlvector->z == Trvector.w);
 	}
 
 	template <typename _Type>

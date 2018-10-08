@@ -84,16 +84,31 @@
     <ClInclude Include="include\KPerpCore\Window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\KPerpExt\KGUI\kgui_widget.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\KPerpExt\KGUI\kgui_window.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ext\glad\glad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ext\glad\glad_egl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KGUI\Widget.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KGUI\Subwindow.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KGUI\kgui.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KGUI\Button.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KGUI\Style.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KGUI\SubwindowManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -149,16 +164,34 @@
     <ClCompile Include="source\KPerpCore\CritSection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\KPerpExt\KGUI\kgui_widget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\KPerpExt\KGUI\kgui_window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\ext\glad\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\ext\glad\glad_egl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\KGUI\Widget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\KGUI\Subwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\KPerpExt\KGUI\Layout.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\KGUI\Layout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpCore\kgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\KGUI\Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\KGUI\SubwindowManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\KPerpExt\KGUI\kgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -172,5 +205,9 @@
     <None Include="include\KPerpCore\Vector.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="include\KPerpCore\Area.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>
