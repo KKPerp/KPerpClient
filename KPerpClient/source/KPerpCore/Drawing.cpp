@@ -30,6 +30,15 @@ namespace kp {
 	unsigned int Color::uint() const {
 		return color;
 	}
+	unsigned int Color::ruint() const {
+		unsigned int _int;
+		((unsigned char*)(&_int))[0] = ((unsigned char*)(&color))[2];
+		((unsigned char*)(&_int))[1] = ((unsigned char*)(&color))[1];
+		((unsigned char*)(&_int))[2] = ((unsigned char*)(&color))[0];
+		((unsigned char*)(&_int))[3] = ((unsigned char*)(&color))[3];
+
+		return _int;
+	}
 	unsigned char& Color::r() {
 		return ((unsigned char*)(&color))[0];
 	}
@@ -198,6 +207,13 @@ namespace kp {
 
 				memcpy(vertices, &Tvertex, sizeof(Vertex)*Tcount);
 			}
+		}
+
+		VertexArray::VertexArray(const VertexArray& Tvertexarray) {
+			*this = Tvertexarray;
+		}
+		VertexArray::VertexArray(VertexArray&& Tvertexarray) {
+			*this = Tvertexarray;
 		}
 
 		VertexArray::Type VertexArray::getType() const {

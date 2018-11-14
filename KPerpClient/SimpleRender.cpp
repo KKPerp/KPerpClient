@@ -154,7 +154,7 @@ int main() {
 	shader << "in vec4 Color;";
 	shader << "uniform sampler2D tex;";
 	shader << "void main() {";
-	shader << "    FragColor = texture(tex,TexCoord) * Color;";// 
+	shader << "    FragColor = texture(tex,TexCoord) * Color * 0;";// 
 	shader << "}";
 
 	shader.Submit();
@@ -202,12 +202,12 @@ int main() {
 	//window.resetTarget();
 
 	//View primaryview({ 0, 0, 250, 500 }, { 0, 0, (float)window.ClientSize().x, (float)window.ClientSize().y });
-	View primaryview({ 0, 0, 500, 300 }, { 100, 0, 1000, 600 });
+	View primaryview({ 20, 20, 520, 320 }, { 0, 0, 500, 300 });
 	View secondaryview({ 0, 0, 250, 500 }, { 250, 0, 500, 500 });
 
 	View transformingview({ 0, 0, 500, 500 }, { 500, 0, 1000, 500 });
 
-	//window.setTarget(primaryview);
+	window.setTarget(primaryview);
 	//window.resetTarget();
 
 	Text simpletext(font, Vec2(100, 200), "~#00ffffSimple Text LOL~~");
@@ -217,22 +217,6 @@ int main() {
 	//kongfa.oneLine = true;
 	
 	while (window.isActive()) {
-		if (window.mousePressed((Mouse::LeftButton))) {
-			if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD > 0) {
-				_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD = 2;
-			}
-			else {
-				_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD = 1;
-			}
-		}
-		else {
-			if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 2) {
-				_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD = 3;
-			}
-			else {
-				_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD = 0;
-			}
-		}
 		window.Clear(Color(0, 64, 64, 255));
 
 		Vec2 mousepos = window.ViewMousePosFloat();
@@ -244,6 +228,14 @@ int main() {
 		window << Sprite(frame, Vec2(116, 42)).rect;
 
 		
+
+		window << Sprite(frame, (float)mousepos.x, (float)mousepos.y);
+
+		window << Drawing::Rectangle(
+			Vec3(50, 50, 0),
+			Vec3((float)mousepos.x, (float)mousepos.y, 0),
+			Color::Red, Color::Green, Color::Blue, Color::White
+		);
 
 		window.UseSolidTexture();
 
@@ -270,8 +262,8 @@ int main() {
 
 		if (e == kp::Event::WindowSizeChanged) {
 			std::cout << "SIZECHANGE";
-			//window.updateViewPosition();
-			window.restoreView();
+			window.updateViewPosition();
+			//window.restoreView();
 		}
 		if (e == kp::Event::WindowMoved) {
 			std::cout << "MOVE";
@@ -290,9 +282,6 @@ int main() {
 			window.Destroy();
 		}
 	}
-	/*if (subwin != NULL) {
-		delete subwin;
-	}*/
 
 	return 0;
 }

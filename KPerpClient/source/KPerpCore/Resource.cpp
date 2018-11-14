@@ -90,7 +90,7 @@ namespace kp {
 	}
 
 	void Texture::create_software(int Tw, int Th, unsigned char* Tbuffer) {
-		if (Tw*Th == 0) {
+		if (Tw*Th <= 0) {
 			return;
 		}
 		
@@ -105,13 +105,39 @@ namespace kp {
 
 		texture = 0;
 	}
+	void Texture::create_software_bgr(int Tw, int Th, unsigned char* Tbuffer) {
+		if (Tw*Th <= 0) {
+			return;
+		}
+
+		width = Tw;
+		height = Th;
+
+		buffer = new unsigned char[Tw*Th * 4];
+
+		if (Tbuffer != NULL) {
+			for (int i = 0;i < Tw * Th;i++) {
+				buffer[(i * 4)] = Tbuffer[(i * 4)+2];
+				buffer[(i * 4)+1] = Tbuffer[(i * 4)+1];
+				buffer[(i * 4)+2] = Tbuffer[(i * 4)+0];
+				buffer[(i * 4)+3] = Tbuffer[(i * 4)+3];
+			}
+		}
+
+		texture = 0;
+	}
 	void Texture::create_opengl(Renderer& Trenderer, unsigned int Tid, int Tw, int Th, unsigned char* Tbuffer) {
 		HGLRC _hglrc = wglGetCurrentContext();
 		HDC _hdc = wglGetCurrentDC();
 
+		if (Trenderer.hglrc == NULL) {
+			create_software_bgr(Tw, Th, Tbuffer);
+			return;
+		}
+
 		Trenderer.makeCurrent();
 
-		if (Tid == 0 && (Tw*Th != 0)) {
+		if (Tid == 0 && (Tw*Th > 0)) {
 
 			width = Tw;
 			height = Th;

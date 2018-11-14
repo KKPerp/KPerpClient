@@ -34,6 +34,8 @@ namespace kp {
 	_Type radians(_Type Tvalue);
 	template<typename _Type>
 	_Type radians_const(_Type Tvalue);
+	template<typename _Type>
+	constexpr _Type radians_constexpr(_Type Tvalue);
 
 }
 #include <KPerpCore/Math.inl>

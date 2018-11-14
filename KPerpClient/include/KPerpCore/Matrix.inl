@@ -315,17 +315,17 @@ namespace kp {
 	}
 
 	static Vec2 normalize(const Vec2& Tvec2) {
-		float _length = sqrt((Tvec2.x*Tvec2.y) + (Tvec2.y*Tvec2.y));
+		float _length = sqrt((Tvec2.x*Tvec2.x) + (Tvec2.y*Tvec2.y));
 		_length = (_length == 0 ? 1 : _length);
 		return Vec2(Tvec2) / _length;
 	}
 	static Vec3 normalize(const Vec3& Tvec3) {
-		float _length = sqrt((Tvec3.x*Tvec3.y) + (Tvec3.y*Tvec3.y) + (Tvec3.z*Tvec3.z));
+		float _length = sqrt((Tvec3.x*Tvec3.x) + (Tvec3.y*Tvec3.y) + (Tvec3.z*Tvec3.z));
 		_length = (_length == 0 ? 1 : _length);
 		return Vec3(Tvec3) / _length;
 	}
 	static Vec4 normalize(const Vec4& Tvec4) {
-		float _length = sqrt((Tvec4.x*Tvec4.y) + (Tvec4.y*Tvec4.y) + (Tvec4.z*Tvec4.z) + (Tvec4.w*Tvec4.w));
+		float _length = sqrt((Tvec4.x*Tvec4.x) + (Tvec4.y*Tvec4.y) + (Tvec4.z*Tvec4.z) + (Tvec4.w*Tvec4.w));
 		_length = (_length == 0 ? 1 : _length);
 		return Vec4(Tvec4) / _length;
 	}
@@ -430,14 +430,14 @@ namespace kp {
 
 			2/(R-L)  0        0        -(R+L)/(R-L)
 			0        2/(T-B)  0        -(T+B)/(T-B)
-			0        0        -1       0
+			0        0        1        0
 			0        0        0        0    
 		*/
 
 		Matrix<_Type, 4, 4> _matrix;
 		_matrix[0][0] = ((_Type)2) / (Trect.c.x - Trect.a.x);
 		_matrix[1][1] = ((_Type)2) / (Trect.a.y - Trect.c.y);
-		_matrix[2][2] = ((_Type)-1);
+		_matrix[2][2] = ((_Type)1);
 		_matrix[3][0] = -(Trect.c.x + Trect.a.x) / (Trect.c.x - Trect.a.x);
 		_matrix[3][1] = -(Trect.a.y + Trect.c.y) / (Trect.a.y - Trect.c.y);
 
@@ -540,14 +540,14 @@ namespace kp {
 
 		2/(R-L)  0        0        -(R+L)/(R-L)
 		0        2/(T-B)  0        -(T+B)/(T-B)
-		0        0        -1       0
+		0        0        1        0
 		0        0        0        0
 		*/
 
 		Matrix<float, 4, 4> _matrix;
 		_matrix[0][0] = ((float)2) / (Trect.c.x - Trect.a.x);
 		_matrix[1][1] = ((float)2) / (Trect.c.y - Trect.a.y);
-		_matrix[2][2] = ((float)-1);
+		_matrix[2][2] = ((float)1);
 		_matrix[3][0] = -(Trect.c.x + Trect.a.x) / (Trect.c.x - Trect.a.x);
 		_matrix[3][1] = -(Trect.c.y + Trect.a.y) / (Trect.c.y - Trect.a.y);
 

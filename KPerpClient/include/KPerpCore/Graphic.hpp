@@ -5,6 +5,11 @@
 #include <KPerpCore/Drawing.hpp>
 #include <KPerpCore/Win32Handles.hpp>
 #include <KPerpCore/Font.hpp>
+#include <KPerpCore/ModernFont.hpp>
+
+#include <harfbuzz/src/hb.h>
+#include <harfbuzz/src/hb-ft.h>
+#include <vector>
 namespace kp {
 	namespace Drawing {
 		class VertexArray;
@@ -55,6 +60,9 @@ namespace kp {
 		float angle;
 	};
 
+	bool operator==(const Transform& Tltrans, const Transform& Trtrans);
+	bool operator!=(const Transform& Tltrans, const Transform& Trtrans);
+
 	class Sprite {
 	public:
 		Sprite();
@@ -80,24 +88,84 @@ namespace kp {
 		Transform trans;
 	};
 
+	bool operator==(const Sprite& Tlsprite, const Sprite& Trsprite);
+	bool operator!=(const Sprite& Tlsprite, const Sprite& Trsprite);
+
 	class Font;
 
 	class Text {
 	public:
-		Text();
-		Text(Font& Tfont, Vec2 Tpos, char Tchar);
-		Text(Font& Tfont, Vec2 Tpos, const char* Tstring);
-		Text(Font& Tfont, Vec2 Tpos, const std::string& Tstring);
+		enum Align {
+			Left,
+			Center,
+			Right,
 
-		float getWidth();
+			Top,
+			Middle = Center,
+			Bottom
+		};
+
+		Text();
+		Text(Font& Tfont, Vec2 Tpos, char Tchar, Align Talign = Left, Align Tvalign = Top, float Twarp = 0, char Twarpchar = 0, bool Tmnemonic = 0);
+		Text(Font& Tfont, Vec2 Tpos, const char* Tstring, Align Talign = Left, Align Tvalign = Top, float Twarp = 0, char Twarpchar = 0, bool Tmnemonic = 0);
+		Text(Font& Tfont, Vec2 Tpos, const std::string& Tstring, Align Talign = Left, Align Tvalign = Top, float Twarp = 0, char Twarpchar = 0, bool Tmnemonic = 0);
+
+		Vec2 getSize() const;
+		Vec2 getCharLength() const;
+
+		float LineWidth(int Tpos) const;
+		float LineLength(int Tpos) const;
+
+		int NextChar(int Tpos, char Tchar) const;
+		int PrevChar(int Tpos, char Tchar) const;
+
+		int LineIndex(int Tpos, float Tx) const;
+
+		Vec2 LinePos(int Tpos) const;
 
 		Font* font;
 		Vec2 pos;
 		std::string string;
 		Transform trans;
+
+	class ModernText {
+	public:
+		ModernText();
+		~ModernText();
+		ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, wchar_t Tchar, Color Tcolor, float Tscale);
+		ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, const wchar_t* Tstring, Color Tcolor, float Tscale);
+		ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, const std::wstring& Tstring, Color Tcolor, float Tscale);
+
+		float warp;
+		char warpchar;
+
+		ModernFont* font;
+		Vec2 size;
+		Vec2 pos;
+		Color color;
+		std::wstring string;
+		Transform trans;
+		float scale;
+		/*hb_font_t * harfbuzzFace;
+		hb_buffer_t * harfbuzzBuffer;*/
+		void setText(std::wstring str);
+		unsigned int glyphCount;
+		hb_glyph_info_t * glyphInfo;
+		hb_glyph_position_t * glyphPos;
+		std::vector<ModernGlyph> Tglyph;
+		std::vector<hb_feature_t> features;
+
+		void free() const;
+		void addFeature(hb_feature_t fea);
+
+		bool oneLine = false;
+	private:
+		void harfbuzzInit();
+
 	};
 
-	
+	bool operator==(const Text& Tltext, const Text& Trtext);
+	bool operator!=(const Text& Tltext, const Text& Trtext);
 }
 
 #endif

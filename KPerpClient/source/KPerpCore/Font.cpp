@@ -55,6 +55,17 @@ namespace kp {
 		tex = &Ttex;
 	}
 
+	Font::Font(Texture &Ttex, int Tw, int Th, int Tfh, unsigned char Tstart, unsigned char Tend, bool Tm, int Tsep, int Tspace) : height(Th), fullheight(Tfh), start(Tstart), end(Tend), monospace(Tm), sepration(Tsep) {
+		fullwidth = 0;
+		for (int i = 0;i < 255;i++) {
+			width[i] = Tw;
+			fullwidth = Tw;
+		}
+		tex = &Ttex;
+
+		spacewidth = Tspace;
+	}
+
 	char Font::getStartChar() const {
 		return start;
 	}

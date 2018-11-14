@@ -463,7 +463,17 @@ namespace kp {
 		_vec2.x = this->x;
 		_vec2.y = this->y;
 
-		return _vec2;
+		return _vec2
+	}
+
+	template <typename _Type>
+	bool operator==(const Vector2<_Type>& Tlvector, const Vector2<_Type>& Trvector) {
+		return (Tlvector->x == Trvector.x && Tlvector->y == Trvector.y);
+	}
+
+	template <typename _Type>
+	bool operator!=(const Vector2<_Type>& Tlvector, const Vector2<_Type>& Trvector) {
+		return (Tlvector->x != Trvector.x || Tlvector->y != Trvector.y);
 	}
 
 	template <typename _Type>

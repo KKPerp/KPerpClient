@@ -18,6 +18,7 @@ namespace kp {
 
 			vertex = 0;
 			fragment = 0;
+			program = 0;
 
 			tempString = NULL;
 		}
@@ -52,21 +53,34 @@ namespace kp {
 			}
 		}
 		Shader::~Shader() {
+
 			if (!isThisResourceisForThisContext()) {
 				HDC _hdc;
 				HGLRC _hglrc;
 				_hdc = wglGetCurrentDC();
 				_hglrc = wglGetCurrentContext();
 				wglMakeCurrent(hdc, hglrc);
-			glDeleteShader(vertex);
-			glDeleteShader(fragment);
-			glDeleteProgram(program);
-			wglMakeCurrent(_hdc, _hglrc);
+				if (vertex) {
+					glDeleteShader(vertex);
+				}
+				if (fragment) {
+					glDeleteShader(fragment);
+				}
+				if (program) {
+					glDeleteProgram(program);
+				}
+				wglMakeCurrent(_hdc, _hglrc);
 			}
 			else {
-				glDeleteShader(vertex);
-				glDeleteShader(fragment);
-				glDeleteProgram(program);
+				if (vertex) {
+					glDeleteShader(vertex);
+				}
+				if (fragment) {
+					glDeleteShader(fragment);
+				}
+				if (program) {
+					glDeleteProgram(program);
+				}
 			}
 		}
 
@@ -306,6 +320,7 @@ namespace kp {
 				wglMakeCurrent(_hdc, _hglrc);
 			}
 			else {
+				//unsigned int loc = glGetUniformLocation(program, Tname);
 				glUniform1i(glGetUniformLocation(program, Tname), Tvalue);
 			}
 		}
@@ -823,6 +838,9 @@ namespace kp {
 		}
 
 		Shader& Shader::operator=(const Shader& Tshader) {
+			hdc = Tshader.hdc;
+			hglrc = Tshader.hglrc;
+
 			vertex = Tshader.vertex;
 			fragment = Tshader.fragment;
 			program = Tshader.program;
