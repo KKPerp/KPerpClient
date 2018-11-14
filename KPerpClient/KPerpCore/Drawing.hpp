@@ -12,7 +12,7 @@ namespace kp {
 	class Color {
 	public:
 		Color();
-		Color(unsigned char Tr, unsigned char Tg, unsigned char Tb, unsigned char Ta);
+		Color(unsigned char Tr, unsigned char Tg, unsigned char Tb, unsigned char Ta=255);
 		Color(unsigned int Tuint);
 
 		unsigned char r() const;
@@ -20,6 +20,7 @@ namespace kp {
 		unsigned char b() const;
 		unsigned char a() const;
 		unsigned int uint() const;
+		unsigned int ruint() const;
 		unsigned char& r();
 		unsigned char& g();
 		unsigned char& b();
@@ -127,6 +128,9 @@ namespace kp {
 
 			void create(Type Ttype, int Tcount);
 			void create(Type Ttype, int Tcount, const Vertex& Tvertex, ...);
+
+			VertexArray(const VertexArray& Tvertexarray);
+			VertexArray(VertexArray&& Tvertexarray);
 
 			Type getType() const;
 			void setType(Type Ttype);

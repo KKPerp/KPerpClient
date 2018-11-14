@@ -29,6 +29,8 @@ namespace kp {
 			void SetParameterInt(unsigned int Tattrib, int Tvalue);
 			void SetParameterFloat(unsigned int Tattrib, float Tvalue);
 
+			static void Unbind();
+
 		protected:
 			unsigned int texture;
 		};

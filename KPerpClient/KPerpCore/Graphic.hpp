@@ -6,7 +6,6 @@
 
 #include "Win32Handles.hpp"
 #include "Font.hpp"
-#include "ModernFont.hpp"
 
 namespace kp {
 	namespace Drawing {
@@ -58,6 +57,9 @@ namespace kp {
 		float angle;
 	};
 
+	bool operator==(const Transform& Tltrans, const Transform& Trtrans);
+	bool operator!=(const Transform& Tltrans, const Transform& Trtrans);
+
 	class Sprite {
 	public:
 		Sprite();
@@ -83,38 +85,57 @@ namespace kp {
 		Transform trans;
 	};
 
+	bool operator==(const Sprite& Tlsprite, const Sprite& Trsprite);
+	bool operator!=(const Sprite& Tlsprite, const Sprite& Trsprite);
+
 	class Font;
 
 	class Text {
 	public:
-		Text();
-		Text(Font& Tfont, Vec2 Tpos, char Tchar);
-		Text(Font& Tfont, Vec2 Tpos, const char* Tstring);
-		Text(Font& Tfont, Vec2 Tpos, const std::string& Tstring);
+		enum Align {
+			Left,
+			Center,
+			Right,
 
-		float getWidth();
+			Top,
+			Middle = Center,
+			Bottom
+		};
+
+		Text();
+		Text(Font& Tfont, Vec2 Tpos, char Tchar, Align Talign = Left, Align Tvalign = Top, float Twarp = 0, char Twarpchar = 0, bool Tmnemonic = 0);
+		Text(Font& Tfont, Vec2 Tpos, const char* Tstring, Align Talign = Left, Align Tvalign = Top, float Twarp = 0, char Twarpchar = 0, bool Tmnemonic = 0);
+		Text(Font& Tfont, Vec2 Tpos, const std::string& Tstring, Align Talign = Left, Align Tvalign = Top, float Twarp = 0, char Twarpchar = 0, bool Tmnemonic = 0);
+
+		Vec2 getSize() const;
+		Vec2 getCharLength() const;
+
+		float LineWidth(int Tpos) const;
+		float LineLength(int Tpos) const;
+
+		int NextChar(int Tpos, char Tchar) const;
+		int PrevChar(int Tpos, char Tchar) const;
+
+		int LineIndex(int Tpos, float Tx) const;
+
+		Vec2 LinePos(int Tpos) const;
 
 		Font* font;
 		Vec2 pos;
 		std::string string;
 		Transform trans;
+
+		Align align;
+		Align valign;
+
+		float warp;
+		char warpchar;
+
+		bool mnemonic;
 	};
 
-	class ModernText {
-	public:
-		ModernText();
-		ModernText(ModernFont& Tfont, Vec2 Tpos, char Tchar, Color Tcolor);
-		ModernText(ModernFont& Tfont, Vec2 Tpos, const char* Tstring, Color Tcolor);
-		ModernText(ModernFont& Tfont, Vec2 Tpos, const std::string& Tstring, Color Tcolor);
-
-		//float getWidth();
-
-		ModernFont* font;
-		Vec2 pos;
-		Color color;
-		std::string string;
-		Transform trans;
-	};
+	bool operator==(const Text& Tltext, const Text& Trtext);
+	bool operator!=(const Text& Tltext, const Text& Trtext);
 }
 
 #endif

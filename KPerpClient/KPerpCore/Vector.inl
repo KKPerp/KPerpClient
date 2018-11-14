@@ -436,16 +436,12 @@ namespace kp {
 	}
 
 	template <typename _Type>
-	bool Vector2<_Type>::operator==(const Vector2<_Type>& Tvector) {
+	bool Vector2<_Type>::operator==(const Vector2<_Type>& Tvector) const {
 		return (this->x == Tvector.x && this->y == Tvector.y);
-
-		return 1;
 	}
 	template <typename _Type>
-	bool Vector2<_Type>::operator!=(const Vector2<_Type>& Tvector) {
+	bool Vector2<_Type>::operator!=(const Vector2<_Type>& Tvector) const {
 		return (this->x != Tvector.x || this->y != Tvector.y);
-
-		return 0;
 	}
 
 	template <typename _Type>
@@ -467,7 +463,17 @@ namespace kp {
 		_vec2.x = this->x;
 		_vec2.y = this->y;
 
-		return _vec2;
+		return _vec2
+	}
+
+	template <typename _Type>
+	bool operator==(const Vector2<_Type>& Tlvector, const Vector2<_Type>& Trvector) {
+		return (Tlvector->x == Trvector.x && Tlvector->y == Trvector.y);
+	}
+
+	template <typename _Type>
+	bool operator!=(const Vector2<_Type>& Tlvector, const Vector2<_Type>& Trvector) {
+		return (Tlvector->x != Trvector.x || Tlvector->y != Trvector.y);
 	}
 
 	//
@@ -666,16 +672,12 @@ namespace kp {
 	}
 
 	template <typename _Type>
-	bool Vector3<_Type>::operator==(const Vector3<_Type>& Tvector) {
-		return (this->x == Tvector.x && this->y == Tvector.y && this->z == Tvector.z);
-
-		return 1;
+	bool Vector3<_Type>::operator==(const Vector3<_Type>& Tvector) const {
+		return (this->x == Tvector.x && this->y == Tvector.y && this->z == Tvector.z);;
 	}
 	template <typename _Type>
-	bool Vector3<_Type>::operator!=(const Vector3<_Type>& Tvector) {
+	bool Vector3<_Type>::operator!=(const Vector3<_Type>& Tvector) const {
 		return (this->x != Tvector.x || this->y != Tvector.y || this->z != Tvector.z);
-
-		return 0;
 	}
 
 	template <typename _Type>
@@ -690,6 +692,16 @@ namespace kp {
 		_point.y = this->y;
 		_point.z = this->z;
 		return _point;
+	}
+
+	template <typename _Type>
+	bool operator==(const Vector3<_Type>& Tlvector, const Vector3<_Type>& Trvector) {
+		return (Tlvector->x == Trvector.x && Tlvector->y == Trvector.y && Tlvector->z == Trvector.z);
+	}
+
+	template <typename _Type>
+	bool operator!=(const Vector3<_Type>& Tlvector, const Vector3<_Type>& Trvector) {
+		return (Tlvector->x != Trvector.x || Tlvector->y != Trvector.y || Tlvector->z != Trvector.z);
 	}
 
 	//
@@ -909,21 +921,27 @@ namespace kp {
 	}
 
 	template <typename _Type>
-	bool Vector4<_Type>::operator==(const Vector4<_Type>& Tvector) {
+	bool Vector4<_Type>::operator==(const Vector4<_Type>& Tvector) const {
 		return (this->x == Tvector.x && this->y == Tvector.y && this->z == Tvector.z && this->w == Tvector.w);
-
-		return 1;
 	}
 	template <typename _Type>
-	bool Vector4<_Type>::operator!=(const Vector4<_Type>& Tvector) {
+	bool Vector4<_Type>::operator!=(const Vector4<_Type>& Tvector) const {
 		return (this->x != Tvector.x || this->y != Tvector.y || this->z != Tvector.z || this->w != Tvector.w);
-
-		return 0;
 	}
 
 	template <typename _Type>
 	_Type Vector4<_Type>::mul() const {
 		return this->x * this->y * this->z * this->w;
+	}
+
+	template <typename _Type>
+	bool operator==(const Vector4<_Type>& Tlvector, const Vector4<_Type>& Trvector) {
+		return (Tlvector->x == Trvector.x && Tlvector->y == Trvector.y && Tlvector->z == Trvector.w && Tlvector->z == Trvector.w);
+	}
+
+	template <typename _Type>
+	bool operator!=(const Vector4<_Type>& Tlvector, const Vector4<_Type>& Trvector) {
+		return (Tlvector->x != Trvector.x || Tlvector->y != Trvector.y || Tlvector->z != Trvector.w && Tlvector->z == Trvector.w);
 	}
 
 	template <typename _Type>

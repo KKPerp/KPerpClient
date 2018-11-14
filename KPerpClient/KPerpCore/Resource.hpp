@@ -34,11 +34,15 @@ namespace kp {
 		~Texture();
 	private:
 		void create_software(int Tw = 0, int Th = 0, unsigned char* Tbuffer = NULL);
+		void create_software_bgr(int Tw = 0, int Th = 0, unsigned char* Tbuffer = NULL);
 		void create_opengl(Renderer& Trenderer, unsigned int Tid = 0, int Tw = 0, int Th = 0, unsigned char* Tbuffer = NULL);
 
 		int width;
 		int height;
 		unsigned char* buffer;
+
+		friend class SoftwareRenderEngine;
+		friend class Renderer;
 	};
 }
 

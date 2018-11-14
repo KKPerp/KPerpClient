@@ -24,9 +24,44 @@ namespace kp {
 		bool enter();
 		bool leave();
 
+	private:
 		bool state;
 		CritSection* critsect;
 	};
+
+	class Lock {
+	public:
+		Lock(Mutex& Tmutex);
+		~Lock();
+
+	private:
+		Mutex * mutex;
+	};
+
+	class ControlableLock {
+	public:
+		ControlableLock(Mutex& Tmutex);
+		ControlableLock(Mutex& Tmutex, bool Tlock);
+		~ControlableLock();
+
+		void lock();
+		void unlock();
+
+	private:
+		Mutex * mutex;
+		bool state;
+	};
+
+	class LocalLocker {
+	public:
+		LocalLocker(ControlableLock& Tclock);
+		~LocalLocker();
+
+	private:
+		ControlableLock * lock;
+	};
+
+	void waitThisMutex(Mutex& Tmutex);
 }
 
 #endif

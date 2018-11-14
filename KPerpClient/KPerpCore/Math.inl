@@ -17,4 +17,9 @@ namespace kp {
 		// pi / 180
 		return 	(_Type)(Tvalue * (_Type)0.0174532925199432957692);
 	}
+	template<typename _Type>
+	constexpr _Type radians_constexpr(_Type Tvalue) {
+		// pi / 180
+		return 	(_Type)(Tvalue * (_Type)0.0174532925199432957692);
+	}
 }

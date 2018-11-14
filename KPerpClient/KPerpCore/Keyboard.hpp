@@ -7,7 +7,10 @@ namespace kp {
 		RightButton = 2,
 		MiddleButton = 4,
 		X1 = 5,
-		X2 = 6
+		X2 = 6,
+
+		Horizontal = 1000,
+		Vertical = 1001,
 	};
 	enum class Key {
 		Cancel = 3,
@@ -18,7 +21,7 @@ namespace kp {
 
 		Clear = 12,
 		Return,
-		Shift,
+		Shift = 16,
 		Control,
 		Menu,
 		Pause,
@@ -129,8 +132,8 @@ namespace kp {
 		RightShift,
 		LeftControl,
 		RightControl,
-		LeftMenu,
-		RightMenu,
+		LeftAlt,
+		RightAlt,
 		
 		BrowserBack,
 		BrowserForward,

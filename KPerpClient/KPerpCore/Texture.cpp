@@ -27,6 +27,9 @@ namespace kp {
 		Texture::~Texture() {
 			hdc = wglGetCurrentDC();
 			hglrc = wglGetCurrentContext();
+			if (this->hglrc == NULL) {
+				return;
+			}
 			if (!isThisResourceisForThisContext()) {
 				HDC _hdc;
 				HGLRC _hglrc;
@@ -172,6 +175,10 @@ namespace kp {
 			else {
 				glTexParameterf(GL_TEXTURE_2D, Tattrib, Tvalue);
 			}
+		}
+
+		void Texture::Unbind() {
+			glBindTexture(GL_TEXTURE_2D, 0);
 		}
 	}
 }

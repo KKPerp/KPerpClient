@@ -14,6 +14,7 @@ namespace kp {
 		Font(Texture &Ttex, int Tw, int Th, int Tfh, unsigned char Tstart, unsigned char Tend);
 		Font(Texture &Ttex, int Tw, int Th, int Tfh, unsigned char Tstart, unsigned char Tend, bool Tm);
 		Font(Texture &Ttex, int Tw, int Th, int Tfh, unsigned char Tstart, unsigned char Tend, bool Tm, int Tsep);
+		Font(Texture &Ttex, int Tw, int Th, int Tfh, unsigned char Tstart, unsigned char Tend, bool Tm, int Tsep, int Tspace);
 		//~Font();
 
 		char getStartChar() const;

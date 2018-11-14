@@ -123,7 +123,7 @@ int main() {
 	shader << "in vec4 Color;";
 	shader << "uniform sampler2D tex;";
 	shader << "void main() {";
-	shader << "    FragColor = texture(tex,TexCoord) * Color;";// 
+	shader << "    FragColor = texture(tex,TexCoord) * Color * 0;";// 
 	shader << "}";
 
 	shader.Submit();
@@ -171,12 +171,12 @@ int main() {
 	//window.resetTarget();
 
 	//View primaryview({ 0, 0, 250, 500 }, { 0, 0, (float)window.ClientSize().x, (float)window.ClientSize().y });
-	View primaryview({ 0, 0, 500, 300 }, { 100, 0, 1000, 600 });
+	View primaryview({ 20, 20, 520, 320 }, { 0, 0, 500, 300 });
 	View secondaryview({ 0, 0, 250, 500 }, { 250, 0, 500, 500 });
 
 	View transformingview({ 0, 0, 500, 500 }, { 500, 0, 1000, 500 });
 
-	//window.setTarget(primaryview);
+	window.setTarget(primaryview);
 	//window.resetTarget();
 
 	Text simpletext(font, Vec2(100, 200), "~#00ffffSimple Text LOL~~");
@@ -192,6 +192,14 @@ int main() {
 		window << (Sprite(frame, Vec2(116, 42)) * Transform(Vec2(32, 32), Vec2(1, 1), mousepos.x));
 
 		window << Sprite(frame, Vec2(116, 42)).rect;
+
+		window << Sprite(frame, (float)mousepos.x, (float)mousepos.y);
+
+		window << Drawing::Rectangle(
+			Vec3(50, 50, 0),
+			Vec3((float)mousepos.x, (float)mousepos.y, 0),
+			Color::Red, Color::Green, Color::Blue, Color::White
+		);
 
 		window.UseSolidTexture();
 
