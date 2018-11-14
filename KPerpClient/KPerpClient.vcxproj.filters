@@ -111,6 +111,54 @@
     <ClInclude Include="include\KPerpExt\KGUI\SubwindowManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\KPerpCore\SoftwareRenderEngine.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\DesignSection.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\Base.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KGui.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KPerpDesignSectionold.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\Message.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KPerpSound\InstantMediaLine.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KPerpSound\WaveLine.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KPerpSound\Base\MediaInterface.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KPerpSound\Base\WaveOut.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KPerpSound\Base\Core\WinMM.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KGUI\Buffer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KGUI\Element.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KGUI\Label.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\KGUI\Textbox.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\KPerpExt\DesignSection\DesignSectionMenuold.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimpleRender.cpp">
@@ -191,7 +239,40 @@
     <ClCompile Include="source\KPerpExt\KGUI\SubwindowManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="include\KPerpExt\KGUI\kgui.cpp">
+    <ClCompile Include="source\KPerpCore\SoftwareRenderEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\KGUI\KGuiDrawing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\KGUI\Element.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\KGUI\Label.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\KGUI\Textbox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\DesignSection\DesignSectionDrawing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\KPerpSound\WaveLine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\DesignSection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\Message.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\KPerpSound\Base\WaveOut.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\KPerpSound\Base\Core\WinMM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\KPerpExt\KGUI\kgui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

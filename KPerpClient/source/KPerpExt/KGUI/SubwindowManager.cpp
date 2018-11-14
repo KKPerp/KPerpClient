@@ -70,10 +70,7 @@ namespace kp {
 				ModernText CloseText(wng.cfnt, Vec2(30, headerHeight-(headerMargin + 5)), Vec2(posx + posw - headerMargin - 15, posy + headerMargin + 5), L"x", Color(0, 0, 0, 255), 1.0f);
 				CloseText.oneLine = true;
 				renderer << CloseText;
-
-				if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 1) {
-					std::cout << "PRESSED M8\n";
-				}
+		
 				
 
 				if (_wndlw_.dragging)
@@ -84,7 +81,7 @@ namespace kp {
 
 				if (mouse_area(renderer, Vec2(posx + headerMargin, posy + headerMargin), Vec2(posx + posw - headerMargin, posy + headerHeight - headerMargin)) and renderer.mousePressed(Mouse::LeftButton))
 				{
-					if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 1)
+					if (renderer.mousePressed(Mouse::LeftButton))
 					{
 						wng.pos_old.x = renderer.ViewMousePos().x - _wndlw_.getWidgetBound().x;
 						wng.pos_old.y = renderer.ViewMousePos().y - _wndlw_.getWidgetBound().y;
@@ -93,13 +90,12 @@ namespace kp {
 					
 				}
 
-				if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 3)
+				if (renderer.mouseReleased(Mouse::LeftButton))
 				{
-					std::cout << " RELEASED\n";
 					_wndlw_.dragging = false;
 				}
 
-				if (mouse_area(renderer, closeButtonArea) and _____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 1)
+				if (mouse_area(renderer, closeButtonArea) and renderer.mouseReleased(Mouse::LeftButton))
 				{
 					////Actioning
 					//gui->exist = false;

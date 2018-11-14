@@ -1,12 +1,12 @@
-#include <KPerpExt/KGUI/Button.hpp>
+#include <KPerpExt/KGUI/Label.hpp>
 #include <KPerpCore/Graphic.hpp>
 
 namespace kp {
 	namespace KGui {
-		Button::Button() {
+		Label::Label() {
 
 		}
-		Button::Button(Element* Tparent, Rectangle<int> Trect, Text Ttext, Callback<Button> Tcallback,
+		Label::Label(Element* Tparent, Rectangle<int> Trect, Text Ttext, Callback<Label> Tcallback,
 			Color Tbackcolor, Color Tbordercolor, int Tborderthickness, const Sprite& Tsprite,
 			Rectangle<int> Tpadding, Dock Ttldock, Dock Ttrdock, Dock Tbldock, Dock Tbrdock) {
 			parent = Tparent;
@@ -67,85 +67,85 @@ namespace kp {
 			pressed[1] = 0;
 			pressed[2] = 0;
 
-			type = Type::Button;
+			type = Type::Label;
 
 			create();
 		}
 
-		Button::~Button() {
+		Label::~Label() {
 			destroy();
 		}
 
-		void Button::create() {
+		void Label::create() {
 
 		}
-		void Button::destroy() {
+		void Label::destroy() {
 
 		}
-		void Button::step() {
+		void Label::step() {
 
 		}
-		void Button::draw() {
+		void Label::draw() {
 
 		}
 
-		Text Button::getText() {
+		Text Label::getText() {
 			return text;
 		}
-		void Button::setText(Text Ttext) {
+		void Label::setText(Text Ttext) {
 			if (text != Ttext) {
 				text = Ttext;
 				redraw();
 			}
 		}
-		void Button::setTextString(std::string Tstring) {
+		void Label::setTextString(std::string Tstring) {
 			if (text.string != Tstring) {
 				text.string = Tstring;
 				redraw();
 			}
 		}
 
-		Sprite Button::getSprite() {
+		Sprite Label::getSprite() {
 			return backgroundsprite;
 		}
-		void Button::setSprite(Sprite Tsprite) {
+		void Label::setSprite(Sprite Tsprite) {
 			if (backgroundsprite != Tsprite) {
 				backgroundsprite = Tsprite;
 				redraw();
 			}
 		}
 
-		Color Button::getBackgroundColor() {
+		Color Label::getBackgroundColor() {
 			return bgcolor;
 		}
-		void Button::setBackgroundColor(Color Tcolor) {
+		void Label::setBackgroundColor(Color Tcolor) {
 			if (bgcolor != Tcolor) {
 				bgcolor = Tcolor;
 				redraw();
 			}
 		}
 
-		int Button::getBorderThickness() {
+		int Label::getBorderThickness() {
 			return borderthickness;
 		}
-		void Button::setBorderThickness(int Tint) {
+		void Label::setBorderThickness(int Tint) {
 			if (borderthickness != Tint) {
 				borderthickness = Tint;
 				redraw();
 			}
 		}
 
-		Color Button::getBorderColor() {
+		Color Label::getBorderColor() {
 			return bordercolor;
 		}
-		void Button::setBorderColor(Color Tcolor) {
+		void Label::setBorderColor(Color Tcolor) {
 			if (bordercolor != Tcolor) {
 				bordercolor = Tcolor;
 				redraw();
 			}
 		}
 
-		bool Button::getMouseEntered() {
+		bool Label::getMouseEntered() {
 			return mouseentered;
 		}
 	}

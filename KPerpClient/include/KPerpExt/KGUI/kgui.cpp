@@ -1,3 +1,0 @@
-#include "../KPerpExt/KGUI/kgui.hpp"
-
-int _____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD = 0;

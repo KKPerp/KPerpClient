@@ -205,6 +205,8 @@ int main() {
 	ModernText kongfa(mfont, Vec2(3000, 300), Vec2(300, 300), L"ก้องฟ้า วโรรส พี่ฎูหณูเป่าปี่ฃ้างญูกัน abcdef 123456", Color(255, 255, 255, 255), 1);
 	
 	while (window.isActive()) {
+		window.processInputGlobal();
+
 		window.Clear(Color(0, 64, 64, 255));
 
 		Vec2 mousepos = window.ViewMousePosFloat();
@@ -243,16 +245,16 @@ int main() {
 		window.Update();
 		kp::Event e = window.getEvent();
 		//std::cout << time(0) << "\n";
-		if (e == kp::Event::MouseWheelMoved) {
+		if (e.type == kp::Event::Type::MouseWheelMoved) {
 			std::cout << window.MouseWheel() << "\n";
 		}
 
-		if (e == kp::Event::WindowSizeChanged) {
+		if (e.type == kp::Event::Type::WindowSizeChanged) {
 			std::cout << "SIZECHANGE";
 			window.updateViewPosition();
 			//window.restoreView();
 		}
-		if (e == kp::Event::WindowMoved) {
+		if (e.type == kp::Event::Type::WindowMoved) {
 			std::cout << "MOVE";
 		}
 		if (window.keyPressed(Key::Escape)) {
@@ -262,7 +264,7 @@ int main() {
 		//std::cout << w.MousePos().x << "," << w.MousePos().y << "\n";
 		//}
 
-		if (e != kp::Event::Close) {
+		if (e.type != kp::Event::Type::Close) {
 			window.popEvent();
 		}
 		else {

@@ -6,8 +6,6 @@
 //#include <KPerpExt/KGUI/kgui.hpp>
 
 #include <string.h>
-#include <harfbuzz/src/hb.h>
-
 #define colorinta(_cl_r,_cl_g,_cl_b,_cl_a) (_cl_r) + ((_cl_g) * 256U) + ((_cl_b) * 65536U) + ((_cl_a) * 16777216U)
 
 namespace kp {
@@ -41,7 +39,7 @@ namespace kp {
 					renderer.line(Tline.a.x, Tline.a.y, Tline.b.x, Tline.b.y, (unsigned int)(Tline.c1.x * 255) + (unsigned int)(Tline.c1.y * (65280U)) + (unsigned int)(Tline.c1.z * 16711680U) + (unsigned int)(Tline.c1.w * 4278190080U));
 				}
 				else {
-					renderer.line(Tline.a.x, Tline.a.y, Tline.b.x, Tline.b.y, 
+					renderer.line(Tline.a.x, Tline.a.y, Tline.b.x, Tline.b.y,
 						(unsigned int)(Tline.c1.x * 255) + (unsigned int)(Tline.c1.y * (65280U)) + (unsigned int)(Tline.c1.z * 16711680U) + (unsigned int)(Tline.c1.w * 4278190080U),
 						(unsigned int)(Tline.c2.x * 255) + (unsigned int)(Tline.c2.y * (65280U)) + (unsigned int)(Tline.c2.z * 16711680U) + (unsigned int)(Tline.c2.w * 4278190080U));
 				}
@@ -111,13 +109,13 @@ namespace kp {
 						renderer.line(Ttriangle.c.x, Ttriangle.c.y, Ttriangle.a.x, Ttriangle.a.y, (unsigned int)(Ttriangle.c3.x * 255) + (unsigned int)(Ttriangle.c3.y * (65280U)) + (unsigned int)(Ttriangle.c3.z * 16711680U) + (unsigned int)(Ttriangle.c3.w * 4278190080U));
 					}
 					else {
-						renderer.line(Ttriangle.a.x, Ttriangle.a.y, Ttriangle.b.x, Ttriangle.b.y, 
+						renderer.line(Ttriangle.a.x, Ttriangle.a.y, Ttriangle.b.x, Ttriangle.b.y,
 							(unsigned int)(Ttriangle.c1.x * 255) + (unsigned int)(Ttriangle.c1.y * (65280U)) + (unsigned int)(Ttriangle.c1.z * 16711680U) + (unsigned int)(Ttriangle.c1.w * 4278190080U),
 							(unsigned int)(Ttriangle.c2.x * 255) + (unsigned int)(Ttriangle.c2.y * (65280U)) + (unsigned int)(Ttriangle.c2.z * 16711680U) + (unsigned int)(Ttriangle.c2.w * 4278190080U));
-						renderer.line(Ttriangle.b.x, Ttriangle.b.y, Ttriangle.c.x, Ttriangle.c.y, 
+						renderer.line(Ttriangle.b.x, Ttriangle.b.y, Ttriangle.c.x, Ttriangle.c.y,
 							(unsigned int)(Ttriangle.c2.x * 255) + (unsigned int)(Ttriangle.c2.y * (65280U)) + (unsigned int)(Ttriangle.c2.z * 16711680U) + (unsigned int)(Ttriangle.c2.w * 4278190080U),
 							(unsigned int)(Ttriangle.c3.x * 255) + (unsigned int)(Ttriangle.c3.y * (65280U)) + (unsigned int)(Ttriangle.c3.z * 16711680U) + (unsigned int)(Ttriangle.c3.w * 4278190080U));
-						renderer.line(Ttriangle.c.x, Ttriangle.c.y, Ttriangle.a.x, Ttriangle.a.y, 
+						renderer.line(Ttriangle.c.x, Ttriangle.c.y, Ttriangle.a.x, Ttriangle.a.y,
 							(unsigned int)(Ttriangle.c3.x * 255) + (unsigned int)(Ttriangle.c3.y * (65280U)) + (unsigned int)(Ttriangle.c3.z * 16711680U) + (unsigned int)(Ttriangle.c3.w * 4278190080U),
 							(unsigned int)(Ttriangle.c1.x * 255) + (unsigned int)(Ttriangle.c1.y * (65280U)) + (unsigned int)(Ttriangle.c1.z * 16711680U) + (unsigned int)(Ttriangle.c1.w * 4278190080U));
 					}
@@ -438,7 +436,35 @@ namespace kp {
 		return *this;
 	}
 
-	
+	Renderer& Renderer::operator<< (Graphic& Tgraphic) {
+		if (beginvertex == 1) {
+			glEnd();
+		}
+
+		Tgraphic.getTexture().Bind();
+
+		int _size = Tgraphic.getVertexArray().getSize();
+
+		float* _buffer = new float[sizeof(Drawing::Vertex) * _size];
+		memcpy(_buffer, &(Tgraphic.getVertexArray()[0]), sizeof(Drawing::Vertex) * _size);
+
+		for (int i = 0;i < _size;i++) {
+			//Vec3 l = Tgraphic.getVertexArray()[i].pos;
+			(((((Drawing::Vertex*)_buffer)[i].pos.x /= renderwidth) -= 0.5f) *= 2.0f);
+			(((((Drawing::Vertex*)_buffer)[i].pos.y /= renderheight) -= 0.5f) *= 2.0f) *= -1.0f;
+		}
+
+		glBindVertexArray(vao);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+		glBufferData(GL_ARRAY_BUFFER, sizeof(Drawing::Vertex) * _size, _buffer, GL_DYNAMIC_DRAW);
+
+		delete[] _buffer;
+
+		glDrawArrays(_glmodes[Tgraphic.getVertexArray().getType()], 0, _size);
+
+		return *this;
+	}
 	Renderer& Renderer::operator<< (const Sprite& Tsprite) {
 		if (beginvertex == 1) {
 			glEnd();
@@ -842,10 +868,10 @@ namespace kp {
 
 		int _texty = 0;
 		if (Ttext.valign == Text::Middle) {
-			_texty = (Ttext.getSize().y- _bottomheight)/2;
+			_texty = (Ttext.getSize().y - _bottomheight) / 2;
 		}
 		if (Ttext.valign == Text::Bottom) {
-			_texty = (Ttext.getSize().y- _bottomheight);
+			_texty = (Ttext.getSize().y - _bottomheight);
 		}
 
 		if (Ttext.align == Text::Left) {
@@ -1119,7 +1145,7 @@ namespace kp {
 				}
 				_Tdraw = _Tfunc == (TextFunc::None);
 				if ((Ttext.string[i] != ' ') && (Ttext.string[i] != '\n') && (_Tdraw)) {
-					
+
 					if (hglrc != NULL) {
 						float Rx = _textx + _Txpos;
 						float Ry = Ttext.pos.y + _Tline * (Ttext.font->getFullHeight() + Ttext.font->getSepWidth()) - _texty;
@@ -1131,28 +1157,6 @@ namespace kp {
 						float RTy = float(int((Ttext.string[i] - Ttext.font->getStartChar()) / 16) * Ttext.font->getFullHeight()) / Ttext.font->getTex()->getSize().y;
 						float RTw = float(Ttext.font->getWidth(Ttext.string[i])) / Ttext.font->getTex()->getSize().x;
 						float RTh = (float(Ttext.font->getFullHeight()) / Ttext.font->getTex()->getSize().y);
-	Renderer& Renderer::operator<< (const ModernText& Ttext) {
-		UseShader(moderntext_shader,
-			modernmatrixlocation,
-			modernviewmatrixlocation,
-			moderntransmatrixlocation
-		);
-		int posx = Ttext.pos.x;
-		int posy = Ttext.pos.y;
-		const float CharHeightMax = (Ttext.font->getPixelSize() / 2);
-		int cWidth;
-		moderntext_shader.setUniform("textColor", Ttext.color);
-		Vec4 Tcolor = Ttext.color;
-		bool deadend = false;
-		
-
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glBindTexture(GL_TEXTURE_2D, Ttext.font->getTexture());
-		glBindVertexArray(rectvao);
-		std::wstring::const_iterator c;
-
-
 
 						float _buffer[] = {
 							// positions				// colors					// texture coords
@@ -1160,7 +1164,6 @@ namespace kp {
 							((Rx + Rw)), Ry,		0, _color.x, _color.y, _color.z, _color.w,	RTx + RTw,1.0f - (RTy),				// top right
 							(Rx),  Ry + Rh,			0, _color.x, _color.y, _color.z, _color.w,	RTx		 ,1.0f - (RTy + RTh),		// bottom left
 							((Rx + Rw)), Ry + Rh,	0, _color.x, _color.y, _color.z, _color.w,	RTx + RTw,1.0f - (RTy + RTh)	// bottom right
-		for (int i = 0; i < Ttext.glyphCount; ++i) {
 
 						};
 						//*this << Sprite(*Ttext.font->getTex(), ((Ttext.string[i] - Ttext.font->getStartChar()) % 16) * Ttext.font->getFullWidth(), int((Ttext.string[i] - Ttext.font->getStartChar()) / 16) * Ttext.font->getFullHeight(), Ttext.font->getWidth(Ttext.string[i]), Ttext.font->getFullHeight(), Rx, Ry, Rw, Rh);
@@ -1177,13 +1180,13 @@ namespace kp {
 						//if (i == 1) {
 						//_textx +
 						/*
-						renderer.blitrect(*Ttext.font->getTex(), 
-							(_Txpos) + (Ttext.font->getWidth(Ttext.string[i])),
-							(Ttext.pos.y + (_size.y - ((_Tline) * (Ttext.font->getFullHeight() + Ttext.font->getSepWidth())))),
-							(((Ttext.string[i] - Ttext.font->getStartChar()) % 16) * Ttext.font->getFullWidth()), 
-							(int((Ttext.string[i] - Ttext.font->getStartChar()) / 16) * Ttext.font->getFullHeight()), 
-							(Ttext.font->getWidth(Ttext.string[i])), 
-							(Ttext.font->getFullHeight()));
+						renderer.blitrect(*Ttext.font->getTex(),
+						(_Txpos) + (Ttext.font->getWidth(Ttext.string[i])),
+						(Ttext.pos.y + (_size.y - ((_Tline) * (Ttext.font->getFullHeight() + Ttext.font->getSepWidth())))),
+						(((Ttext.string[i] - Ttext.font->getStartChar()) % 16) * Ttext.font->getFullWidth()),
+						(int((Ttext.string[i] - Ttext.font->getStartChar()) / 16) * Ttext.font->getFullHeight()),
+						(Ttext.font->getWidth(Ttext.string[i])),
+						(Ttext.font->getFullHeight()));
 						*/
 						if (hwnd == NULL) {
 							_colort = (unsigned int)(_color.x * 255) + (unsigned int)(_color.y * (65280U)) + (unsigned int)(_color.z * 16711680U) + (unsigned int)(_color.w * 4278190080U);
@@ -1370,7 +1373,7 @@ namespace kp {
 					else {
 						_textx = Ttext.pos.x - (_linewidth / 2);
 					}
-					
+
 				}
 				if (Ttext.string[i] == '\n') {
 					_Tline++;
@@ -1445,30 +1448,6 @@ namespace kp {
 					_Tpos++;
 
 					_collecttext += Ttext.string[i];
-			if (posx + Ttext.Tglyph[i].Size.x > Ttext.pos.x + Ttext.size.x)
-			{
-				if (!Ttext.oneLine)
-				{
-					posy += CharHeightMax * Ttext.scale;
-					posx = Ttext.pos.x;
-				}
-			}
-			float xpos = posx + Ttext.Tglyph[i].Bearing.x * Ttext.scale;
-			float ypos = posy + ((CharHeightMax - Ttext.Tglyph[i].Bearing.y)) * Ttext.scale;
-			//getModernGlyphList()[HighestCharHeight].Bearing.y
-			float w = Ttext.Tglyph[i].Size.x * Ttext.scale;
-			float h = Ttext.Tglyph[i].Size.y * Ttext.scale;
-			float vertices[] = {
-				xpos,     ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,0.0, 0.0 ,
-				xpos,     ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 0.0, 1.0 ,
-				xpos + w, ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 1.0, 0.0 ,
-				xpos + w, ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 1.0, 1.0
-			};
-
-			char log[1000];
-			moderntext_shader.getLog(OpenGL::Shader::ShaderType::Fragment, log, 1000);
-			char loga[1000];
-			moderntext_shader.getLog(OpenGL::Shader::ShaderType::Vertex, loga, 1000);
 
 				}
 				else {
@@ -1611,17 +1590,67 @@ namespace kp {
 			return *this;
 		}
 	}
-}
+
+	Renderer& Renderer::operator<< (const ModernText& Ttext) {
+		UseShader(moderntext_shader,
+			modernmatrixlocation,
+			modernviewmatrixlocation,
+			moderntransmatrixlocation
+		);
+		int posx = Ttext.pos.x;
+		int posy = Ttext.pos.y;
+		const float CharHeightMax = (Ttext.font->getPixelSize() / 2);
+		int cWidth;
+		moderntext_shader.setUniform("textColor", Ttext.color);
+		Vec4 Tcolor = Ttext.color;
+		bool deadend = false;
+
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glBindTexture(GL_TEXTURE_2D, Ttext.font->getTexture());
+		glBindVertexArray(rectvao);
+		std::wstring::const_iterator c;
+
+
+
+		for (int i = 0; i < Ttext.glyphCount; ++i) {
+
+			if (posx + Ttext.Tglyph[i].Size.x > Ttext.pos.x + Ttext.size.x)
+			{
+				if (!Ttext.oneLine)
+				{
+					posy += CharHeightMax * Ttext.scale;
+					posx = Ttext.pos.x;
+				}
+			}
+			float xpos = posx + Ttext.Tglyph[i].Bearing.x * Ttext.scale;
+			float ypos = posy + ((CharHeightMax - Ttext.Tglyph[i].Bearing.y)) * Ttext.scale;
+			//getModernGlyphList()[HighestCharHeight].Bearing.y
+			float w = Ttext.Tglyph[i].Size.x * Ttext.scale;
+			float h = Ttext.Tglyph[i].Size.y * Ttext.scale;
+			float vertices[] = {
+				xpos,     ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,0.0, 0.0 ,
+				xpos,     ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 0.0, 1.0 ,
+				xpos + w, ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 1.0, 0.0 ,
+				xpos + w, ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 1.0, 1.0
+			};
+
+			char log[1000];
+			moderntext_shader.getLog(OpenGL::Shader::ShaderType::Fragment, log, 1000);
+			char loga[1000];
+			moderntext_shader.getLog(OpenGL::Shader::ShaderType::Vertex, loga, 1000);
+
 			if (Ttext.oneLine)
 			{
 				if (!deadend)
 				{
 					/*if (posx + Ttext.Tglyph[i].Size.x < Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[63].Size.x))
-						glBindTexture(GL_TEXTURE_2D, Ttext.Tglyph[i].TextureID);
+					glBindTexture(GL_TEXTURE_2D, Ttext.Tglyph[i].TextureID);
 					else
 					{
-						glBindTexture(GL_TEXTURE_2D, Ttext.font->GlyphList[63].TextureID);
-						deadend = true;
+					glBindTexture(GL_TEXTURE_2D, Ttext.font->GlyphList[63].TextureID);
+					deadend = true;
 					}
 					glBindBuffer(GL_ARRAY_BUFFER, rectvbo);
 					memcpy(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY), vertices, sizeof(vertices));
@@ -1670,24 +1699,23 @@ namespace kp {
 			posx += (Ttext.Tglyph[i].Advance >> 6) * Ttext.scale;
 			UseSolidTexture();
 			//Ttext.free();
-			
+
 			//*this << Drawing::Rectangle(Vec3(xpos, ypos, 0), Vec3(xpos + w, ypos + h, 0), Color::Blue, Color::Green, Color::Red, Color::Yellow, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), false);
 		}
-		
-		
+
+
 		//*this << Drawing::Rectangle(Vec3(Ttext.pos.x, Ttext.pos.y, 0), Vec3(Ttext.pos.x + Ttext.size.x, Ttext.pos.y + Ttext.size.y, 0), Color::Blue, Color::Green, Color::Red, Color::Yellow, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), false);
 		glBindVertexArray(0);
 		glBindTexture(GL_TEXTURE_2D, 0);
-		shader.Use();
+		moderntext_shader.Use();
 		return *this;
 
 	}
 
-	
+
 	//Renderer& Renderer::operator<< (const ext::Subwindow& gui)
 	//{
 	//	*this << Drawing::Rectangle(Vec3(gui.getWidgetBound().x, gui.getWidgetBound().y, 0), Vec3(gui.getWidgetBound().x + gui.getWidgetBound().z, gui.getWidgetBound().y + gui.getWidgetBound().w, 0), Color::Blue, Color::Green, Color::Red, Color::Yellow, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), false);
 	//	return *this;
 	//}
-
 }

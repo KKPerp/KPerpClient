@@ -18,8 +18,8 @@
 //#include "Window.hpp"
 //#include "Ext/KGui/Element.hpp"
 
-#include "Ext/KGui/Textbox.hpp"
-#include "Ext/DesignSection.hpp"
+#include <KPerpExt/KGUI/Textbox.hpp>
+#include <KPerpExt/DesignSection.hpp>
 
 #include <map>
 #include <vector>
@@ -1835,6 +1835,65 @@ namespace kp {
 		shader.End();
 
 		shader.Compile();
+
+		moderntext_shader.Create(NULL, NULL);
+
+		moderntext_shader.Begin(Shader::Vertex, 1);
+
+		moderntext_shader += "#version 330 core";
+		moderntext_shader << "layout (location = 0) in vec3 _kp_Pos;";
+		moderntext_shader << "layout (location = 1) in vec4 _kp_Color;";
+		moderntext_shader << "layout (location = 2) in vec2 _kp_TexCoord;";
+		moderntext_shader << "out vec2 _kp_outTexCoord;";
+		moderntext_shader << "out vec4 _kp_outColor;";
+		moderntext_shader << "uniform mat4 _kp_matrix;";
+		moderntext_shader << "uniform mat4 _kp_view;";
+		moderntext_shader << "uniform mat4 _kp_transview;";
+		moderntext_shader << "void main() {";
+		moderntext_shader << "    gl_Position = _kp_transview * _kp_view * _kp_matrix * vec4(_kp_Pos.x, _kp_Pos.y, _kp_Pos.z, 1.0);";
+		moderntext_shader << "    _kp_outTexCoord = _kp_TexCoord;";
+		moderntext_shader << "    _kp_outColor = _kp_Color;";
+		moderntext_shader << "}";
+
+		moderntext_shader.Submit();
+
+		moderntext_shader.End();
+
+
+		moderntext_shader.Begin(Shader::Fragment, 1);
+
+		moderntext_shader += "#version 330 core";
+
+		/*moderntext_shader << "in vec2 _kp_outTexCoord;";
+		moderntext_shader << "out vec4 color;";
+
+		moderntext_shader << "uniform sampler2D text;";
+		moderntext_shader << "uniform vec4 textColor;";
+
+		moderntext_shader << "void main()";
+		moderntext_shader << "{";
+		moderntext_shader << "	vec4 sampled = vec4(0,0,1,1);//vec4(1.0, 1.0, 1.0, texture(text, _kp_outTexCoord).r);";
+		moderntext_shader << "	FragColor = textColor * sampled;";
+		moderntext_shader << "}";*/
+
+		moderntext_shader << "out vec4 FragColor;";
+		moderntext_shader << "in vec2 _kp_outTexCoord;";
+		moderntext_shader << "in vec4 _kp_outColor;";
+		moderntext_shader << "uniform sampler2D _kp_Tex;";
+		moderntext_shader << "void main() {";
+		moderntext_shader << "    FragColor = vec4(1,1,1,texture(_kp_Tex,_kp_outTexCoord).r) * _kp_outColor;";// 
+		moderntext_shader << "}";
+
+		moderntext_shader.Submit();
+
+		moderntext_shader.End();
+
+		moderntext_shader.Compile();
+
+		modernmatrixlocation = moderntext_shader.getLocation("_kp_matrix");
+		modernviewmatrixlocation = moderntext_shader.getLocation("_kp_view");
+		moderntransmatrixlocation = moderntext_shader.getLocation("_kp_transview");
+
 
 		shader.Use();
 

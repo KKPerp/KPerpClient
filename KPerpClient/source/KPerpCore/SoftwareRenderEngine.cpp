@@ -1,7 +1,7 @@
-#include "SoftwareRenderEngine.hpp"
+#include <KPerpCore/SoftwareRenderEngine.hpp>
 #include <cmath>
 
-#include "Resource.hpp"
+#include <KPerpCore/Resource.hpp>
 
 #define colorinta(_cl_r,_cl_g,_cl_b,_cl_a) (_cl_r) + ((_cl_g) * 256U) + ((_cl_b) * 65536U) + ((_cl_a) * 16777216U)
 
@@ -12,7 +12,7 @@ namespace kp {
 
 	bool SoftwareRenderEngine::settarget(int Tw, int Th, unsigned int* Tbuffer) {
 		width = Tw;
-		height = Th;
+		height = Th;								
 		buffer = Tbuffer;
 
 		size = width * height;
