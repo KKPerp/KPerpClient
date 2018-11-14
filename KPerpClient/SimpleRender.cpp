@@ -34,9 +34,17 @@ int main() {
 	Font font;
 
 	ImageFile _fontf("resources/img/Font.png", 1);
+	ImageFile _pfontf("resources/img/PlatFont.png", 1);
 
 	//MODERN TEXT
-	ModernFont mfont = ModernFont("resources/fnt/plat.ttf", 36);
+	ModernFont mfont = ModernFont("resources/fnt/plat.ttf", 48);
+
+	ModernTextStyle textStyle{
+		Color(255, 255, 255, 255),
+		Color(0, 0, 0, 255),
+		Color(0, 0, 0, 0),
+		Vec2(0,0)
+	};
 	//ModernFont sfont = ModernFont("resources/fnt/PlataleDef.ttf", 12);
 
 	//ModernText text_mouse
@@ -45,17 +53,19 @@ int main() {
 	//kgui ext
 	
 	ext::SubWindowManager submag;
-	int point = submag.AddSubWindow(ext::Subwindow(Vec4(20, 20, 100, 250), L"ก้องฟ้า วโรรส พี่ฎูหณูเป่าปี่ฃ้างญูกัน abcdef 123456"));
+	int point = submag.AddSubWindow(ext::Subwindow(Vec4(20, 20, 100, 250), L"Cap"));
 	//ext::Subwindow * subwin = new kp::ext::Subwindow(Vec4(30, 30, 500, 250), "My Window Sucks");
 	//ext::Button wbutton = ext::Button(subwin, "shit");
 	//subwin->addWidget()
 	
-	kp::Texture _font(window, _fontf);
+	//kp::Texture _font(window, _fontf);
+	kp::Texture _pfont(window, _pfontf);
 	
 	_fontf.Free();
 
 	{
-		font = Font(_font, 24, 32, 56, '!', '~', 0, 1);
+		//font = Font(_font, 24, 32, 56, '!', '~', 0, 1);
+		font = Font(_pfont, 24, 32, 56, '!', '~', 1, 1);
 
 		int _CharacterWidth[] = {
 		  //!  "  #  $  %  &  '  (  )  *  +  ,  -  .  /  0  1  2  3  4  5  6  7  8  9
@@ -202,7 +212,9 @@ int main() {
 
 	Text simpletext(font, Vec2(100, 200), "~#00ffffSimple Text LOL~~");
 
-	ModernText kongfa(mfont, Vec2(3000, 300), Vec2(300, 300), L"ก้องฟ้า วโรรส พี่ฎูหณูเป่าปี่ฃ้างญูกัน abcdef 123456", Color(255, 255, 255, 255), 1);
+	ModernText kongfa(mfont, Vec2(3000, 300), Vec2(20, 300), L"หากวันนี้ ฉันกินตั้งเยอะ พรุ่งนี้ ฉันจะกินโคตรเยอะ", textStyle, 1);
+	ModernText dsadkongfa(mfont, Vec2(3000, 300), Vec2(20, 500), L"A list of bit flags used in the ‘face_flags’ field of the FT_FaceRec structure. They inform client applications of properties of the corresponding face.", Color(255, 255, 255, 255), Color(0, 0, 0, 255), 1);
+	//kongfa.oneLine = true;
 	
 	while (window.isActive()) {
 		if (window.mousePressed((Mouse::LeftButton))) {
@@ -245,6 +257,7 @@ int main() {
 
 
 		window << kongfa;
+		window << dsadkongfa;
 		//window << ModernText(sfont, Vec2(300, 300), Vec2(500, 500), L"This is Small Modern Text gypq", Color(255, 255, 255, 255), 1);
 		
 		//window << Sprite(_font, 10, 10);

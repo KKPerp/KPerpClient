@@ -7,6 +7,18 @@
 #include <KPerpCore/Window.hpp>
 namespace kp {
 	namespace ext {
+		enum subwin_drag_mode {
+			DRAG_NONE,
+			DRAG_LEFT,
+			DRAG_RIGHT,
+			DRAG_TOP,
+			DRAG_BOTTOM,
+			DRAG_LT,
+			DRAG_RT,
+			DRAG_LB,
+			DRAG_RB,
+			DRAG_CAP
+		};
 		class Subwindow : public Widget
 		{
 		public:
@@ -24,7 +36,7 @@ namespace kp {
 			virtual void setCanClose(bool closable);
 
 			std::wstring getCaption() const;
-			bool dragging = false;
+			subwin_drag_mode dragging = DRAG_NONE;
 		private:
 			std::wstring caption;
 			bool exist;

@@ -1,5 +1,4 @@
-#include <ft2build.h>
-#include FT_FREETYPE_H
+
 #include <KPerpCore/Graphic.hpp>
 
 namespace kp {
@@ -383,81 +382,7 @@ namespace kp {
 		return _Twidth;
 	}
 
-	ModernText::ModernText() {
-
-	}
-	ModernText::ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, wchar_t Tchar, Color Tcolor, float Tscale) {
-		font = &Tfont;
-		color = Tcolor;
-		size = Tsize;
-		scale = Tscale;
-		harfbuzzInit();
-	}
-	ModernText::ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, const wchar_t* Tstring, Color Tcolor, float Tscale) {
-		font = &Tfont;
-		pos = Tpos;
-		string = Tstring;
-		color = Tcolor;
-		size = Tsize;
-		scale = Tscale;
-		harfbuzzInit();
-	}
-	ModernText::ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, const std::wstring& Tstring, Color Tcolor, float Tscale) {
-		font = &Tfont;
-		pos = Tpos;
-		string = Tstring;
-		color = Tcolor;
-		size = Tsize;
-		scale = Tscale;
-		harfbuzzInit();
-	}
-
-	void ModernText::harfbuzzInit()
-	{
-		
-		hb_font_t * harfbuzzFace = hb_ft_font_create(*(font->face), NULL);
-		hb_buffer_t * harfbuzzBuffer = hb_buffer_create();
-
-		hb_buffer_allocation_successful(harfbuzzBuffer);
-
-		hb_buffer_set_direction(harfbuzzBuffer, HB_DIRECTION_LTR);
-		hb_buffer_set_script(harfbuzzBuffer, HB_SCRIPT_THAI);
-		hb_buffer_add_utf16(harfbuzzBuffer, (unsigned short*)(string.c_str()), string.length(), 0, string.length());
-
-		hb_shape(harfbuzzFace, harfbuzzBuffer, features.empty() ? NULL : &features[0], features.size());
-
-		glyphCount = hb_buffer_get_length(harfbuzzBuffer);
-		glyphInfo = hb_buffer_get_glyph_infos(harfbuzzBuffer, &glyphCount);
-		glyphPos = hb_buffer_get_glyph_positions(harfbuzzBuffer, &glyphCount);
-		
-		for (int i = 0; i < glyphCount; ++i)
-			Tglyph.push_back(font->rasterizeGlyph(glyphInfo[i].codepoint));
-		
-		hb_buffer_destroy(harfbuzzBuffer);
-		hb_font_destroy(harfbuzzFace);
-	}
-
-	void ModernText::setText(std::wstring str)
-	{
-		string = str;
-		free();
-		harfbuzzInit();
-	}
-
-	void ModernText::free() const
-	{
-		
-	}
-
-	void ModernText::addFeature(hb_feature_t fea)
-	{
-		features.push_back(fea);
-	}
-
-	ModernText::~ModernText()
-	{
-		free();
-	}
+	
 
 
 }

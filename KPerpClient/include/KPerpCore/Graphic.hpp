@@ -5,11 +5,6 @@
 #include <KPerpCore/Drawing.hpp>
 #include <KPerpCore/Win32Handles.hpp>
 #include <KPerpCore/Font.hpp>
-#include <KPerpCore/ModernFont.hpp>
-
-#include <harfbuzz/src/hb.h>
-#include <harfbuzz/src/hb-ft.h>
-#include <vector>
 namespace kp {
 	namespace Drawing {
 		class VertexArray;
@@ -102,40 +97,7 @@ namespace kp {
 		Transform trans;
 	};
 
-	class ModernText {
-	public:
-		ModernText();
-		~ModernText();
-		ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, wchar_t Tchar, Color Tcolor, float Tscale);
-		ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, const wchar_t* Tstring, Color Tcolor, float Tscale);
-		ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, const std::wstring& Tstring, Color Tcolor, float Tscale);
-
-		//float getWidth();
-
-		ModernFont* font;
-		Vec2 size;
-		Vec2 pos;
-		Color color;
-		std::wstring string;
-		Transform trans;
-		float scale;
-		/*hb_font_t * harfbuzzFace;
-		hb_buffer_t * harfbuzzBuffer;*/
-		void setText(std::wstring str);
-		unsigned int glyphCount;
-		hb_glyph_info_t * glyphInfo;
-		hb_glyph_position_t * glyphPos;
-		std::vector<ModernGlyph> Tglyph;
-		std::vector<hb_feature_t> features;
-
-		void free() const;
-		void addFeature(hb_feature_t fea);
-
-		bool oneLine = false;
-	private:
-		void harfbuzzInit();
-
-	};
+	
 }
 
 #endif

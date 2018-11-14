@@ -5,10 +5,6 @@
 
 #include <KPerpExt/KGUI/kgui.hpp>
 
-#define _wndlw_ wng.getSubWindowList()[w]
-#define _wndl_ wng.getSubWindowList()
-
-
 #define DRAW_OUTLINE_ALL false
 
 namespace kp {
@@ -28,7 +24,13 @@ namespace kp {
 
 		Renderer & operator<<(Window & renderer, SubWindowManager& wng)
 		{
-			for (unsigned int w = 0;w < wng.getSubWindowList().size();w++)
+#define _wndlw_ wng.getSubWindowList()[w]
+#define _wndl_ wng.getSubWindowList()
+#define __SW_X _wndlw_.getWidgetBound().x
+#define __SW_Y _wndlw_.getWidgetBound().y
+#define __SW_W _wndlw_.getWidgetBound().z
+#define __SW_H _wndlw_.getWidgetBound().w
+			for (unsigned int w = 0 ;w < wng.getSubWindowList().size();w++)
 			{ 
 				/*if (wng->getSubWindowList()[w].exist) {
 					return renderer;
@@ -40,34 +42,32 @@ namespace kp {
 				Color col(50, 50, 50, 255);
 				Color col_prim(255, 100, 10, 255);
 				Color col_header_l(0, 0, 0, 255);
-				float posx = _wndlw_.getWidgetBound().x;
-				float posy = _wndlw_.getWidgetBound().y;
-				float posw = _wndlw_.getWidgetBound().z;
-				float posh = _wndlw_.getWidgetBound().w;
 
-				const Vec4 closeButtonArea(posx + posw - headerHeight + headerMargin, posy + headerMargin, posx + posw - headerMargin, posy + headerHeight - headerMargin);
 
-				renderer << Drawing::Rectangle(Vec3(posx, posy, 0), Vec3(posx + posw, posy + posh, 0), col, col, col, col, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), true);
 
-				renderer << Drawing::Rectangle(Vec3(posx, posy, 0), Vec3(posx + posw, posy + posh, 0), col_prim, col_prim, col_prim, col_prim, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), false);
+				const Vec4 closeButtonArea(__SW_X + __SW_W - headerHeight + headerMargin, __SW_Y + headerMargin, __SW_X + __SW_W - headerMargin, __SW_Y + headerHeight - headerMargin);
 
-				renderer << Drawing::Rectangle(Vec3(posx + headerMargin, posy + headerMargin, 0), Vec3(posx + posw - headerMargin, posy + headerHeight - headerMargin, 0), col_header_l, col_prim, col_header_l, col_prim, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), true);
+				renderer << Drawing::Rectangle(Vec3(__SW_X, __SW_Y, 0), Vec3(__SW_X + __SW_W, __SW_Y + __SW_H, 0), col, col, col, col, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), true);
+
+				renderer << Drawing::Rectangle(Vec3(__SW_X, __SW_Y, 0), Vec3(__SW_X + __SW_W, __SW_Y + __SW_H, 0), col_prim, col_prim, col_prim, col_prim, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), false);
+
+				renderer << Drawing::Rectangle(Vec3(__SW_X + headerMargin, __SW_Y + headerMargin, 0), Vec3(__SW_X + __SW_W - headerMargin, __SW_Y + headerHeight - headerMargin, 0), col_header_l, col_prim, col_header_l, col_prim, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), true);
 
 				if (DRAW_OUTLINE_ALL)
 				{
 					//Window Header
-					renderer << Drawing::Rectangle(Vec3(posx + headerMargin, posy + headerMargin, 0), Vec3(posx + posw - headerMargin, posy + headerHeight - headerMargin, 0), Color::Blue, Color::Green, Color::Red, Color::Yellow, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), false);
+					renderer << Drawing::Rectangle(Vec3(__SW_X + headerMargin, __SW_Y + headerMargin, 0), Vec3(__SW_X + __SW_W - headerMargin, __SW_Y + headerHeight - headerMargin, 0), Color::Blue, Color::Green, Color::Red, Color::Yellow, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), false);
 
 					//Close Button Area
 					renderer << Drawing::Rectangle(Vec3(closeButtonArea.x, closeButtonArea.y, 0), Vec3(closeButtonArea.z, closeButtonArea.w, 0), Color::Blue, Color::Green, Color::Red, Color::Yellow, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), false);
 
 				}
 				
-				ModernText capp(wng.cfnt, Vec2(posw-(headerMargin + 30), headerHeight-(headerMargin + 5)), Vec2(posx + headerMargin + 5, posy + headerMargin + 5), _wndlw_.getCaption(), Color(255, 255, 255, 255), 1.0f);
+				ModernText capp(wng.cfnt, Vec2(__SW_W-(headerMargin + 30), headerHeight-(headerMargin + 5)), Vec2(__SW_X + headerMargin + 5, __SW_Y + headerMargin), _wndlw_.getCaption(), Color(255, 255, 255, 255), 1.0f);
 				capp.oneLine = true;
 				renderer << capp;
 
-				ModernText CloseText(wng.cfnt, Vec2(30, headerHeight-(headerMargin + 5)), Vec2(posx + posw - headerMargin - 15, posy + headerMargin + 5), L"x", Color(0, 0, 0, 255), 1.0f);
+				ModernText CloseText(wng.cfnt, Vec2(30, headerHeight-(headerMargin + 5)), Vec2(__SW_X + __SW_W - headerMargin - 15, __SW_Y + headerMargin), L"x", Color(0, 0, 0, 255), 1.0f);
 				CloseText.oneLine = true;
 				renderer << CloseText;
 
@@ -76,19 +76,23 @@ namespace kp {
 				}
 				
 
-				if (_wndlw_.dragging)
+				if (_wndlw_.dragging == DRAG_CAP)
 				{
-					_wndlw_.setWidgetBound(renderer.ViewMousePos().x, renderer.ViewMousePos().y, _wndlw_.getWidgetBound().z, _wndlw_.getWidgetBound().w);
+					//_wndlw_.setWidgetBound(renderer.ViewMousePos().x, renderer.ViewMousePos().y, _wndlw_.getWidgetBound().z, _wndlw_.getWidgetBound().w);
 					_wndlw_.setWidgetBound(renderer.ViewMousePos().x - wng.pos_old.x, renderer.ViewMousePos().y - wng.pos_old.y, _wndlw_.getWidgetBound().z, _wndlw_.getWidgetBound().w);
 				}
+				if (_wndlw_.dragging == DRAG_RIGHT)
+				{
+					_wndlw_.setWidgetBound(_wndlw_.getWidgetBound().x, _wndlw_.getWidgetBound().y, renderer.ViewMousePos().x - _wndlw_.getWidgetBound().x, _wndlw_.getWidgetBound().w);
+				}
 
-				if (mouse_area(renderer, Vec2(posx + headerMargin, posy + headerMargin), Vec2(posx + posw - headerMargin, posy + headerHeight - headerMargin)) and renderer.mousePressed(Mouse::LeftButton))
+				if (mouse_area(renderer, Vec2(__SW_X + headerMargin, __SW_Y + headerMargin), Vec2(__SW_X + __SW_W - headerMargin, __SW_Y + headerHeight - headerMargin)) and renderer.mousePressed(Mouse::LeftButton))
 				{
 					if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 1)
 					{
 						wng.pos_old.x = renderer.ViewMousePos().x - _wndlw_.getWidgetBound().x;
 						wng.pos_old.y = renderer.ViewMousePos().y - _wndlw_.getWidgetBound().y;
-						_wndlw_.dragging = true;
+						_wndlw_.dragging = DRAG_CAP;
 					}
 					
 				}
@@ -96,8 +100,21 @@ namespace kp {
 				if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 3)
 				{
 					std::cout << " RELEASED\n";
-					_wndlw_.dragging = false;
+					_wndlw_.dragging = DRAG_NONE;
 				}
+
+				Vec4 rs_right = Vec4(__SW_X + __SW_W - headerMargin, __SW_Y + headerMargin, __SW_X + __SW_W, __SW_Y + __SW_H - headerMargin);
+				if (mouse_area(renderer,rs_right) and renderer.mousePressed(Mouse::LeftButton))
+				{
+					if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 1)
+					{
+						//wng.pos_old.x = renderer.ViewMousePos().x - _wndlw_.getWidgetBound().x;
+						_wndlw_.dragging = DRAG_RIGHT;
+					}
+
+				}
+
+				//LAST
 
 				if (mouse_area(renderer, closeButtonArea) and _____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 1)
 				{
@@ -112,6 +129,10 @@ namespace kp {
 					//_wndlw_.setCaption("");
 				}
 			}
+#undef __SW_X
+#undef __SW_Y
+#undef __SW_W
+#undef __SW_H
 			return renderer;
 		}
 

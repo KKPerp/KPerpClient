@@ -573,17 +573,18 @@ namespace kp {
 		);
 		int posx = Ttext.pos.x;
 		int posy = Ttext.pos.y;
-		const float CharHeightMax = (Ttext.font->getPixelSize() / 2);
+		const float CharHeightMax = (Ttext.font->getPixelSize() / 1.25);
 		int cWidth;
-		moderntext_shader.setUniform("textColor", Ttext.color);
-		Vec4 Tcolor = Ttext.color;
+		//moderntext_shader.setUniform("textColor", Ttext.DiffuseColor);
+		Vec4 Tcolor = Ttext.DiffuseColor;
+		Vec4 Toutcolor = Ttext.OutlineColor;
 		bool deadend = false;
 		
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glBindTexture(GL_TEXTURE_2D, Ttext.font->getTexture());
-		glBindVertexArray(rectvao);
+		glBindVertexArray(moderntextvao);
 		std::wstring::const_iterator c;
 
 
@@ -604,10 +605,10 @@ namespace kp {
 			float w = Ttext.Tglyph[i].Size.x * Ttext.scale;
 			float h = Ttext.Tglyph[i].Size.y * Ttext.scale;
 			float vertices[] = {
-				xpos,     ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,0.0, 0.0 ,
-				xpos,     ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 0.0, 1.0 ,
-				xpos + w, ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 1.0, 0.0 ,
-				xpos + w, ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 1.0, 1.0
+				xpos,     ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,Toutcolor.x, Toutcolor.y, Toutcolor.z, Toutcolor.w,0.0, 0.0 ,
+				xpos,     ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,Toutcolor.x, Toutcolor.y, Toutcolor.z, Toutcolor.w, 0.0, 1.0 ,
+				xpos + w, ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,Toutcolor.x, Toutcolor.y, Toutcolor.z, Toutcolor.w, 1.0, 0.0 ,
+				xpos + w, ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,Toutcolor.x, Toutcolor.y, Toutcolor.z, Toutcolor.w, 1.0, 1.0
 			};
 
 			char log[1000];
@@ -626,7 +627,7 @@ namespace kp {
 						glBindTexture(GL_TEXTURE_2D, Ttext.font->GlyphList[63].TextureID);
 						deadend = true;
 					}
-					glBindBuffer(GL_ARRAY_BUFFER, rectvbo);
+					glBindBuffer(GL_ARRAY_BUFFER, moderntextvbo);
 					memcpy(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY), vertices, sizeof(vertices));
 					glUnmapBuffer(GL_ARRAY_BUFFER);
 					glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);*/
@@ -634,7 +635,7 @@ namespace kp {
 					if (posx + Ttext.Tglyph[i].Size.x < Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[392].Size.x))
 					{
 						glBindTexture(GL_TEXTURE_2D, Ttext.Tglyph[i].TextureID);
-						glBindBuffer(GL_ARRAY_BUFFER, rectvbo);
+						glBindBuffer(GL_ARRAY_BUFFER, moderntextvbo);
 						memcpy(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY), vertices, sizeof(vertices));
 						glUnmapBuffer(GL_ARRAY_BUFFER);
 						glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -647,14 +648,14 @@ namespace kp {
 						float w = Ttext.font->GlyphList[392].Size.x * Ttext.scale;
 						float h = Ttext.font->GlyphList[392].Size.y * Ttext.scale;
 						float newvertices[] = {
-							Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[392].Size.x),     ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,0.0, 0.0 ,
-							Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[392].Size.x),     ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 0.0, 1.0 ,
-							Ttext.pos.x + Ttext.size.x, ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 1.0, 0.0 ,
-							Ttext.pos.x + Ttext.size.x, ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w, 1.0, 1.0
+							Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[392].Size.x),     ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,Toutcolor.x, Toutcolor.y, Toutcolor.z, Toutcolor.w,0.0, 0.0 ,
+							Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[392].Size.x),     ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,Toutcolor.x, Toutcolor.y, Toutcolor.z, Toutcolor.w, 0.0, 1.0 ,
+							Ttext.pos.x + Ttext.size.x, ypos,			0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,Toutcolor.x, Toutcolor.y, Toutcolor.z, Toutcolor.w, 1.0, 0.0 ,
+							Ttext.pos.x + Ttext.size.x, ypos + h,		0,Tcolor.x, Tcolor.y, Tcolor.z, Tcolor.w,Toutcolor.x, Toutcolor.y, Toutcolor.z, Toutcolor.w, 1.0, 1.0
 						};
 						//*this << Drawing::Rectangle(Vec3(Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[392].Size.x), ypos, 0), Vec3(Ttext.pos.x + Ttext.size.x - (Ttext.font->GlyphList[392].Size.x) + (Ttext.font->GlyphList[392].Size.x), ypos + h, 0), Color::Blue, Color::Green, Color::Red, Color::Yellow, Vec2(0, 0), Vec2(0, 1), Vec2(1, 0), Vec2(1, 1), false);
 						glBindTexture(GL_TEXTURE_2D, Ttext.font->GlyphList[392].TextureID);
-						glBindBuffer(GL_ARRAY_BUFFER, rectvbo);
+						glBindBuffer(GL_ARRAY_BUFFER, moderntextvbo);
 						memcpy(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY), newvertices, sizeof(newvertices));
 						glUnmapBuffer(GL_ARRAY_BUFFER);
 						glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -665,7 +666,7 @@ namespace kp {
 			else
 			{
 				glBindTexture(GL_TEXTURE_2D, Ttext.Tglyph[i].TextureID);
-				glBindBuffer(GL_ARRAY_BUFFER, rectvbo);
+				glBindBuffer(GL_ARRAY_BUFFER, moderntextvbo);
 				memcpy(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY), vertices, sizeof(vertices));
 				glUnmapBuffer(GL_ARRAY_BUFFER);
 				glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

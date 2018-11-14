@@ -887,7 +887,41 @@ namespace kp {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
 
+		// (x, y, z, r, g, b, a, s, t) * 4
+
+		glGenVertexArrays(1, &moderntextvao);
+		glGenBuffers(1, &moderntextvbo);
+		glGenBuffers(1, &moderntextebo);
+
+		glBindVertexArray(moderntextvao);
+		glBindBuffer(GL_ARRAY_BUFFER, moderntextvbo);
+
+		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 52, NULL, GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, moderntextebo);
+
+		unsigned int _indices_moderntext[] = {
+			0, 1, 2,
+			1, 2, 3
+		};
+
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices_moderntext), _indices_moderntext, GL_STATIC_DRAW);
+
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 13, (void*)(0 * sizeof(float)));
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 13, (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 13, (void*)(7 * sizeof(float)));
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 13, (void*)(11 * sizeof(float)));
+		glEnableVertexAttribArray(3);
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
+
 		// (x, y, z, r, g, b, a, s, t) * ...
+
+
 
 		glGenVertexArrays(1, &vao);
 		glGenBuffers(1, &vbo);
@@ -950,24 +984,32 @@ namespace kp {
 
 		shader.Compile();
 
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 		moderntext_shader.Create(NULL, NULL);
 
 		moderntext_shader.Begin(Shader::Vertex, 1);
 
 		moderntext_shader += "#version 330 core";
 		moderntext_shader << "layout (location = 0) in vec3 _kp_Pos;";
-		moderntext_shader << "layout (location = 1) in vec4 _kp_Color;";
-		moderntext_shader << "layout (location = 2) in vec2 _kp_TexCoord;";
+		moderntext_shader << "layout (location = 1) in vec4 _kp_DiffuseColor;";
+		moderntext_shader << "layout (location = 2) in vec4 _kp_OutlineColor;";
+		moderntext_shader << "layout (location = 3) in vec2 _kp_TexCoord;";
 		moderntext_shader << "out vec2 _kp_outTexCoord;";
-		moderntext_shader << "out vec4 _kp_outColor;";
+		moderntext_shader << "out vec4 _kp_outDiffuseColor;";
+		moderntext_shader << "out vec4 _kp_outOutlineColor;";
 		moderntext_shader << "uniform mat4 _kp_matrix;";
 		moderntext_shader << "uniform mat4 _kp_view;";
 		moderntext_shader << "uniform mat4 _kp_transview;";
 		moderntext_shader << "void main() {";
 		moderntext_shader << "    gl_Position = _kp_transview * _kp_view * _kp_matrix * vec4(_kp_Pos.x, _kp_Pos.y, _kp_Pos.z, 1.0);";
 		moderntext_shader << "    _kp_outTexCoord = _kp_TexCoord;";
-		moderntext_shader << "    _kp_outColor = _kp_Color;";
+		moderntext_shader << "    _kp_outDiffuseColor = _kp_DiffuseColor;";
+		moderntext_shader << "    _kp_outOutlineColor = _kp_OutlineColor;";
 		moderntext_shader << "}";
+
+
 
 		moderntext_shader.Submit();
 
@@ -992,10 +1034,25 @@ namespace kp {
 
 		moderntext_shader << "out vec4 FragColor;";
 		moderntext_shader << "in vec2 _kp_outTexCoord;";
-		moderntext_shader << "in vec4 _kp_outColor;";
+		moderntext_shader << "in vec4 _kp_outDiffuseColor;";
+		moderntext_shader << "in vec4 _kp_outOutlineColor;";
 		moderntext_shader << "uniform sampler2D _kp_Tex;";
 		moderntext_shader << "void main() {";
-		moderntext_shader << "    FragColor = vec4(1,1,1,texture(_kp_Tex,_kp_outTexCoord).r) * _kp_outColor;";// 
+		moderntext_shader << "	if (_kp_outOutlineColor.a != 0)";
+		moderntext_shader << "	{";
+		moderntext_shader << "		vec2 tex = texture2D(_kp_Tex,_kp_outTexCoord).rg;";
+		moderntext_shader << "		float fill = tex.r;";
+		moderntext_shader << "		float outline = tex.g;";
+
+		moderntext_shader << "		float alpha = max(fill * _kp_outDiffuseColor.a, outline * _kp_outOutlineColor.a);";
+		moderntext_shader << "		vec3 mix_color = mix(mix(vec3(0.0), _kp_outDiffuseColor.rgb, fill), _kp_outOutlineColor.rgb, outline);";
+
+		moderntext_shader << "		FragColor = vec4(mix_color, alpha);";
+		moderntext_shader << "	}";
+		moderntext_shader << "	else ";
+		moderntext_shader << "	{";
+		moderntext_shader << "		FragColor = vec4(1,1,1,texture(_kp_Tex,_kp_outTexCoord).r) * _kp_outDiffuseColor;";
+		moderntext_shader << "	}";
 		moderntext_shader << "}";
 
 		moderntext_shader.Submit();
@@ -1003,6 +1060,10 @@ namespace kp {
 		moderntext_shader.End();
 
 		moderntext_shader.Compile();
+
+		moderntext_shader.Use();
+
+		moderntext_shader.setUniformType(Shader::Type::Mat4x4, "_kp_view", viewmatrix);
 
 		modernmatrixlocation = moderntext_shader.getLocation("_kp_matrix");
 		modernviewmatrixlocation = moderntext_shader.getLocation("_kp_view");

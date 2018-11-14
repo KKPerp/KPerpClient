@@ -236,6 +236,10 @@ namespace kp {
 		unsigned int rectvbo;
 		unsigned int rectebo;
 
+		unsigned int moderntextvao;
+		unsigned int moderntextvbo;
+		unsigned int moderntextebo;
+
 		unsigned int vao;
 		unsigned int vbo;
 
