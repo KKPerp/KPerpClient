@@ -128,11 +128,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include.hpp" />
+    <ClInclude Include="include\KPerpExt\Base.hpp" />
+    <ClInclude Include="include\KPerpExt\DesignSection.hpp" />
+    <ClInclude Include="include\KPerpExt\DesignSection\DesignSectionMenuold.hpp" />
+    <ClInclude Include="include\KPerpExt\KGui.hpp" />
+    <ClInclude Include="include\KPerpExt\KGUI\Buffer.hpp" />
     <ClInclude Include="include\KPerpExt\KGUI\Button.hpp" />
+    <ClInclude Include="include\KPerpExt\KGUI\Element.hpp" />
     <ClInclude Include="include\KPerpExt\KGUI\kgui.hpp" />
+    <ClInclude Include="include\KPerpExt\KGUI\Label.hpp" />
     <ClInclude Include="include\KPerpExt\KGUI\Style.hpp" />
     <ClInclude Include="include\KPerpExt\KGUI\Subwindow.hpp" />
     <ClInclude Include="include\KPerpExt\KGUI\SubwindowManager.hpp" />
+    <ClInclude Include="include\KPerpExt\KGUI\Textbox.hpp" />
     <ClInclude Include="include\KPerpExt\KGUI\Widget.hpp" />
     <ClInclude Include="include\KPerpCore\CritSection.hpp" />
     <ClInclude Include="include\KPerpCore\Drawing.hpp" />
@@ -159,16 +167,29 @@
     <ClInclude Include="include\KPerpCore\Win32Handles.hpp" />
     <ClInclude Include="include\KPerpCore\Window.hpp" />
     <ClInclude Include="include\KPerpCore\ModernFont.hpp" />
+    <ClInclude Include="include\KPerpCore\SoftwareRenderEngine.hpp" />
+    <ClInclude Include="include\KPerpExt\KPerpDesignSectionold.hpp" />
+    <ClInclude Include="include\KPerpExt\KPerpSound\Base\Core\WinMM.hpp" />
+    <ClInclude Include="include\KPerpExt\KPerpSound\Base\MediaInterface.hpp" />
+    <ClInclude Include="include\KPerpExt\KPerpSound\Base\WaveOut.hpp" />
+    <ClInclude Include="include\KPerpExt\KPerpSound\InstantMediaLine.hpp" />
+    <ClInclude Include="include\KPerpExt\KPerpSound\WaveLine.hpp" />
+    <ClInclude Include="include\KPerpExt\Message.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="include\KPerpExt\KGUI\kgui.cpp" />
     <ClCompile Include="include\KPerpExt\KGUI\Layout.hpp" />
     <ClCompile Include="source\ext\glad\glad.c" />
     <ClCompile Include="source\ext\glad\glad_egl.c" />
-    <ClCompile Include="source\KPerpCore\kgui.cpp" />
+    <ClCompile Include="source\KPerpCore\SoftwareRenderEngine.cpp" />
+    <ClCompile Include="source\KPerpExt\DesignSection.cpp" />
+    <ClCompile Include="source\KPerpExt\DesignSection\DesignSectionDrawing.cpp" />
     <ClCompile Include="source\KPerpExt\KGUI\Button.cpp" />
+    <ClCompile Include="source\KPerpExt\KGUI\Element.cpp" />
+    <ClCompile Include="source\KPerpExt\KGUI\KGuiDrawing.cpp" />
+    <ClCompile Include="source\KPerpExt\KGUI\Label.cpp" />
     <ClCompile Include="source\KPerpExt\KGUI\Layout.cpp" />
     <ClCompile Include="source\KPerpExt\KGUI\SubwindowManager.cpp" />
+    <ClCompile Include="source\KPerpExt\KGUI\Textbox.cpp" />
     <ClCompile Include="source\KPerpExt\KGUI\Widget.cpp" />
     <ClCompile Include="source\KPerpCore\CritSection.cpp" />
     <ClCompile Include="source\KPerpCore\Drawing.cpp" />
@@ -188,6 +209,10 @@
     <ClCompile Include="source\KPerpCore\ModernFont.cpp" />
     <ClCompile Include="source\KPerpExt\KGUI\Subwindow.cpp" />
     <ClCompile Include="SimpleRender.cpp" />
+    <ClCompile Include="source\KPerpExt\KPerpSound\Base\Core\WinMM.cpp" />
+    <ClCompile Include="source\KPerpExt\KPerpSound\Base\WaveOut.cpp" />
+    <ClCompile Include="source\KPerpExt\KPerpSound\WaveLine.cpp" />
+    <ClCompile Include="source\KPerpExt\Message.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

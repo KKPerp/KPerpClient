@@ -1086,6 +1086,17 @@ namespace kp {
 			Tltext.warp == Trtext.warp &&
 			Tltext.warpchar == Trtext.warpchar);
 	}
+	bool operator!=(const Text& Tltext, const Text& Trtext) {
+		return (Tltext.string != Trtext.string ||
+			Tltext.align != Trtext.align ||
+			Tltext.font != Trtext.font ||
+			Tltext.mnemonic != Trtext.mnemonic ||
+			Tltext.pos != Trtext.pos ||
+			Tltext.trans != Trtext.trans ||
+			Tltext.valign != Trtext.valign ||
+			Tltext.warp != Trtext.warp ||
+			Tltext.warpchar != Trtext.warpchar);
+	}
 	ModernText::ModernText(ModernFont& Tfont, Vec2 Tsize, Vec2 Tpos, wchar_t Tchar, Color Tcolor, float Tscale) {
 		font = &Tfont;
 		color = Tcolor;

@@ -18,8 +18,8 @@
 //#include "Window.hpp"
 //#include "Ext/KGui/Element.hpp"
 
-#include "Ext/KGui/Textbox.hpp"
-#include "Ext/DesignSection.hpp"
+#include <KPerpExt/KGUI/Textbox.hpp>
+#include <KPerpExt/DesignSection.hpp>
 
 #include <map>
 #include <vector>

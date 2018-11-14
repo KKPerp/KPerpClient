@@ -70,10 +70,7 @@ namespace kp {
 				ModernText CloseText(wng.cfnt, Vec2(30, headerHeight-(headerMargin + 5)), Vec2(__SW_X + __SW_W - headerMargin - 15, __SW_Y + headerMargin), L"x", Color(0, 0, 0, 255), 1.0f);
 				CloseText.oneLine = true;
 				renderer << CloseText;
-
-				if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 1) {
-					std::cout << "PRESSED M8\n";
-				}
+		
 				
 
 				if (_wndlw_.dragging == DRAG_CAP)
@@ -88,7 +85,7 @@ namespace kp {
 
 				if (mouse_area(renderer, Vec2(__SW_X + headerMargin, __SW_Y + headerMargin), Vec2(__SW_X + __SW_W - headerMargin, __SW_Y + headerHeight - headerMargin)) and renderer.mousePressed(Mouse::LeftButton))
 				{
-					if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 1)
+					if (renderer.mousePressed(Mouse::LeftButton))
 					{
 						wng.pos_old.x = renderer.ViewMousePos().x - _wndlw_.getWidgetBound().x;
 						wng.pos_old.y = renderer.ViewMousePos().y - _wndlw_.getWidgetBound().y;
@@ -97,26 +94,12 @@ namespace kp {
 					
 				}
 
-				if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 3)
+				if (renderer.mouseReleased(Mouse::LeftButton))
 				{
-					std::cout << " RELEASED\n";
-					_wndlw_.dragging = DRAG_NONE;
+					_wndlw_.dragging = false;
 				}
 
-				Vec4 rs_right = Vec4(__SW_X + __SW_W - headerMargin, __SW_Y + headerMargin, __SW_X + __SW_W, __SW_Y + __SW_H - headerMargin);
-				if (mouse_area(renderer,rs_right) and renderer.mousePressed(Mouse::LeftButton))
-				{
-					if (_____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 1)
-					{
-						//wng.pos_old.x = renderer.ViewMousePos().x - _wndlw_.getWidgetBound().x;
-						_wndlw_.dragging = DRAG_RIGHT;
-					}
-
-				}
-
-				//LAST
-
-				if (mouse_area(renderer, closeButtonArea) and _____CLASS_____MOUSE_____PROCESS_____gg____________________________SUCC____________________________GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG::MOUZ_PRESD == 1)
+				if (mouse_area(renderer, closeButtonArea) and renderer.mouseReleased(Mouse::LeftButton))
 				{
 					////Actioning
 					//gui->exist = false;

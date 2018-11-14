@@ -22,7 +22,7 @@
 
 #include <KPerpCore/OpenGLTools.hpp>
 
-#include "SoftwareRenderEngine.hpp"
+#include <KPerpCore/SoftwareRenderEngine.hpp>
 
 #include "glad/glad.h"
 
@@ -177,6 +177,7 @@ namespace kp {
 	class Texture;
 	class View;
 	class Text;
+	class ModernText;
 
 	class Window;
 
@@ -310,11 +311,13 @@ namespace kp {
 		virtual Renderer& operator<< (const Drawing::Vertex& Tvertex);
 		virtual Renderer& operator<< (_End);
 
-		//virtual Renderer& operator<< (Graphic& Tgraphic);
+		virtual Renderer& operator<< (Graphic& Tgraphic);
 
 		virtual Renderer& operator<< (const Sprite& Tsprite);
 
 		virtual Renderer& operator<< (const Text& Ttext);
+
+		virtual Renderer& operator<< (const ModernText& Ttext);
 
 		// Kgui
 
@@ -411,6 +414,7 @@ namespace kp {
 		bool useview;
 
 		OpenGL::Shader* shader;
+		OpenGL::Shader moderntext_shader;
 		Matrix<float, 4, 4> matrix;
 		Matrix<float, 4, 4> viewmatrix;
 		Matrix<float, 4, 4> transmatrix;

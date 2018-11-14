@@ -128,6 +128,14 @@ namespace kp {
 		std::string string;
 		Transform trans;
 
+		Align align;
+		Align valign;
+
+		float warp;
+		char warpchar;
+
+		bool mnemonic;
+	};
 	class ModernText {
 	public:
 		ModernText();
@@ -163,9 +171,9 @@ namespace kp {
 		void harfbuzzInit();
 
 	};
-
 	bool operator==(const Text& Tltext, const Text& Trtext);
 	bool operator!=(const Text& Tltext, const Text& Trtext);
+	
 }
 
 #endif
