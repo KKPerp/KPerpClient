@@ -6,10 +6,16 @@
 
 //#include "KPerpEngine.hpp"
 
-#include "KPerpCore\Main.hpp"
-#include "KPerpCore\OpenGLTools.hpp"
-#include "KPerpCore\Drawing.hpp"
-#include "KPerpCore\Resource.hpp"
+
+//#include "include.hpp"
+#include <KPerpExt\KGUI\kgui.hpp>
+
+#include <KPerpCore\Main.hpp>
+#include <KPerpCore\OpenGLTools.hpp>
+#include <KPerpCore\Drawing.hpp>
+#include <KPerpCore\Resource.hpp>
+
+
 
 #include <iostream>
 
@@ -27,8 +33,23 @@ int main() {
 	//window.useView(1);
 	Font font;
 
-	ImageFile _fontf("Font.png", 1);
+	ImageFile _fontf("resources/img/Font.png", 1);
 
+	//MODERN TEXT
+	ModernFont mfont = ModernFont("resources/fnt/plat.ttf", 36);
+	//ModernFont sfont = ModernFont("resources/fnt/PlataleDef.ttf", 12);
+
+	//ModernText text_mouse
+
+
+	//kgui ext
+	
+	ext::SubWindowManager submag;
+	int point = submag.AddSubWindow(ext::Subwindow(Vec4(20, 20, 100, 250), L"°ÈÕßøÈ“ «‚√√  æ’ËÆŸÀ≥Ÿ‡ªË“ª’Ë£È“ß≠Ÿ°—π abcdef 123456"));
+	//ext::Subwindow * subwin = new kp::ext::Subwindow(Vec4(30, 30, 500, 250), "My Window Sucks");
+	//ext::Button wbutton = ext::Button(subwin, "shit");
+	//subwin->addWidget()
+	
 	kp::Texture _font(window, _fontf);
 	
 	_fontf.Free();
@@ -53,7 +74,7 @@ int main() {
 
 	window.EnableBlending(BlendFactor::SourceAlpha, BlendFactor::OneMinusSourceAlpha);
 
-	ImageFile _framef("Frame.png", 1);
+	ImageFile _framef("resources/img/Frame.png", 1);
 
 	kp::Texture frame = kp::Texture(window, _framef);
 
@@ -180,18 +201,21 @@ int main() {
 	//window.resetTarget();
 
 	Text simpletext(font, Vec2(100, 200), "~#00ffffSimple Text LOL~~");
+
+	ModernText kongfa(mfont, Vec2(3000, 300), Vec2(300, 300), L"°ÈÕßøÈ“ «‚√√  æ’ËÆŸÀ≥Ÿ‡ªË“ª’Ë£È“ß≠Ÿ°—π abcdef 123456", Color(255, 255, 255, 255), 1);
 	
 	while (window.isActive()) {
 		window.Clear(Color(0, 64, 64, 255));
 
 		Vec2 mousepos = window.ViewMousePosFloat();
 
-		window << Text(font, Vec2(50, 200), "~#00ffffSimple ~#ffff00Text ~#ff00ffLOL");
+		window << Text(font, Vec2(0, 0), "~#00ffffSimple ~#ffff00Text ~#ff00ffLOL");
+		
 		window << Sprite(frame, Vec2(10, 10));
 
-		window << (Sprite(frame, Vec2(116, 42)) * Transform(Vec2(32, 32), Vec2(1, 1), mousepos.x));
-
 		window << Sprite(frame, Vec2(116, 42)).rect;
+
+		
 
 		window << Sprite(frame, (float)mousepos.x, (float)mousepos.y);
 
@@ -204,6 +228,17 @@ int main() {
 		window.UseSolidTexture();
 
 		window << v;
+//#define AAA submag.getSubWindowList()[point]
+//#define BBB AAA.getWidgetBound()
+//		
+//		AAA.setWidgetBound(BBB.x, BBB.y, window.ViewMousePos().x - BBB.x, window.ViewMousePos().y - BBB.y);
+		
+		window << submag;
+
+
+		window << kongfa;
+		//window << ModernText(sfont, Vec2(300, 300), Vec2(500, 500), L"This is Small Modern Text gypq", Color(255, 255, 255, 255), 1);
+		
 		//window << Sprite(_font, 10, 10);
 		window.Update();
 		kp::Event e = window.getEvent();
